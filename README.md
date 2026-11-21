@@ -3,6 +3,10 @@
 A [Carpet](https://github.com/gnembon/fabric-carpet) addon for **Minecraft 26.3** by **hai_dan**.
 It brings back the pre-1.16 fishing feel and collects small quality-of-life rules under the `dan` category.
 
+> **Vibe coding 声明**：本项目的代码和文档是在 AI 辅助下完成的（vibe coding）。已在本机 26.3 服务端做过基本功能验证，但没有覆盖所有场景；使用前请自行评估风险，出问题欢迎提 issue。
+>
+> **Vibe-coding notice**: this project was built with AI assistance (vibe coding). It has been smoke-tested on a local 26.3 server, but not exhaustively. Use it at your own risk, and feel free to open an issue if something breaks.
+
 > 目前只支持 Minecraft 26.3 / Minecraft 26.3 only.
 
 ---
