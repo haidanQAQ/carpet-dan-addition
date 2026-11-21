@@ -25,10 +25,10 @@ Carpet Dan Addition（CDA）是 hai_dan 的 Carpet 附属模组。所有规则�
 | `true` | 忽略开放水域限制，宝藏仍按原版权重（约 5%，海之眷顾 III 约 11%） |
 | `imba` | 只使用宝藏战利品表：100% 宝藏，没有鱼和垃圾，海之眷顾不影响结果 |
 
-实现方式：
+简单说：
 
-- `true` / `imba`：让 `FishingHookPredicate#matches` 恒为 `true`，`in_open_water` 条件永远通过。
-- `imba`：把 `FishingHook#retrieve` 中的战利品表从 `gameplay/fishing` 重定向到 `gameplay/fishing/treasure`。
+- `true` / `imba`：不管浮标周围有没有 5×4×5 的开放水域，都当成“符合条件”，所以宝藏能正常参与抽取。
+- `imba`：干脆跳过鱼和垃圾，收竿时直接去宝藏表里抽，所以每一竿都是宝藏。
 
 ### 安装
 
@@ -89,10 +89,10 @@ Restores the pre-1.16 fishing feel: treasure can be caught without a 5×4×5 ope
 | `true` | Ignores the open water requirement; treasure keeps its vanilla weight (about 5%, ~11% with Luck of the Sea III) |
 | `imba` | Uses the treasure loot table only: 100% treasure, no fish and no junk; Luck of the Sea has no effect |
 
-How it works:
+In plain terms:
 
-- `true` / `imba`: forces `FishingHookPredicate#matches` to return `true`, so the `in_open_water` condition always passes.
-- `imba`: redirects the loot table in `FishingHook#retrieve` from `gameplay/fishing` to `gameplay/fishing/treasure`.
+- `true` / `imba`: the bobber is always treated as sitting in open water, so treasure can be rolled anywhere.
+- `imba`: skips fish and junk entirely and rolls straight from the treasure table, so every catch is treasure.
 
 ### Installation
 
