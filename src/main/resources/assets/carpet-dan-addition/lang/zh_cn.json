@@ -1,0 +1,8 @@
+{
+  "carpet.category.dan": "dan",
+  "carpet.rule.fishingTreasureNoOpenWater.name": "无开放水域限制钓鱼",
+  "carpet.rule.fishingTreasureNoOpenWater.desc": "还原 1.16 之前的钓鱼：不需要 5x4x5 开放水域也能钓到宝藏。",
+  "carpet.rule.fishingTreasureNoOpenWater.extra.0": "false - 原版行为（需要开放水域）",
+  "carpet.rule.fishingTreasureNoOpenWater.extra.1": "true - 忽略开放水域限制，宝藏概率保持原版",
+  "carpet.rule.fishingTreasureNoOpenWater.extra.2": "imba - 只出宝藏，不出鱼和垃圾"
+}

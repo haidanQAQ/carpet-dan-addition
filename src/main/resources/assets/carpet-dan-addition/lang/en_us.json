@@ -1,0 +1,8 @@
+{
+  "carpet.category.dan": "dan",
+  "carpet.rule.fishingTreasureNoOpenWater.name": "Fishing with no open water requirement",
+  "carpet.rule.fishingTreasureNoOpenWater.desc": "Restores pre-1.16 fishing: treasure can be caught without a 5x4x5 open water area.",
+  "carpet.rule.fishingTreasureNoOpenWater.extra.0": "false - vanilla (open water area required)",
+  "carpet.rule.fishingTreasureNoOpenWater.extra.1": "true - ignore the open water requirement, normal treasure chance",
+  "carpet.rule.fishingTreasureNoOpenWater.extra.2": "imba - only treasure loot, no fish and no junk"
+}

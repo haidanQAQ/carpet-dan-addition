@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "${id}",
+  "version": "${version}",
+  "name": "${name}",
+  "description": "A Carpet addon that restores pre-1.16 fishing behaviour and adds more Dan-style tweaks.",
+  "authors": [
+    "hai_dan"
+  ],
+  "contact": {
+    "homepage": "https://github.com/haidanQAQ/Carpet-dan-addition",
+    "sources": "https://github.com/haidanQAQ/Carpet-dan-addition",
+    "issues": "https://github.com/haidanQAQ/Carpet-dan-addition/issues"
+  },
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.haidan.carpetdan.CarpetDanAddition"
+    ]
+  },
+  "mixins": [
+    "carpet-dan-addition.mixins.json"
+  ],
+  "depends": {
+    "carpet": ">=26.3",
+    "fabricloader": ">=0.19.5",
+    "minecraft": ">=26.3",
+    "java": ">=25"
+  }
+}

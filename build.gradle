@@ -1,0 +1,65 @@
+plugins {
+    id 'net.fabricmc.fabric-loom' version "${loom_version}"
+}
+
+version = "${mod_version}+mc${minecraft_version}"
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+repositories {
+    maven {
+        name = 'JitPack'
+        url = 'https://jitpack.io'
+        content {
+            includeGroupByRegex('com\\.github\\..*')
+        }
+    }
+    maven {
+        name = 'Modrinth'
+        url = 'https://api.modrinth.com/maven'
+        content {
+            includeGroup('maven.modrinth')
+        }
+    }
+}
+
+dependencies {
+    minecraft("com.mojang:minecraft:${project.minecraft_version}")
+
+    implementation("net.fabricmc:fabric-loader:${project.loader_version}")
+
+    // Carpet 26.3 (JitPack develop branch build, same source of truth as CCA/TIS)
+    implementation("com.github.gnembon:fabric-carpet:${project.carpet_version}") {
+        transitive = false
+    }
+}
+
+processResources {
+    def data = [
+            'id'                 : project.mod_id,
+            'name'               : project.mod_name,
+            'version'            : project.version,
+            'minecraft'          : project.minecraft_dependency,
+            'loader'             : project.loader_version
+    ]
+
+    inputs.properties(data)
+
+    filesMatching('fabric.mod.json') {
+        expand data
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 25
+    it.options.encoding = 'UTF-8'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+    withSourcesJar()
+}
