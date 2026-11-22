@@ -50,6 +50,21 @@ Carpet Dan Addition（CDA）是 hai_dan 的 Carpet 附属模组。所有规则�
 - 挖掘耗时等于“镐子挖石头”：钻石锄 + 效率 V + 信标急迫 II 可以在 1 个游戏刻内挖掉。
 - 规则名就是全小写的 `hoebedrockbreaking`。
 
+#### `botnoclip`
+
+取消 Carpet 假人（bot）与玩家之间的互相推动（默认关）。
+
+| 值 | 行为 |
+| --- | --- |
+| `false`（默认） | 原版：假人和玩家会互相挤开 |
+| `true` | 假人与玩家之间不再互相推动 |
+
+细节：
+
+- 只拦截“假人 ↔ 玩家”之间的推挤；玩家与玩家、玩家与生物不受影响。
+- 适合先摆好假人（钓鱼机、刷怪塔挂机点等），再在旁边走动也不会把它挤歪。
+- 规则名全小写 `botnoclip`。
+
 ### 安装
 
 1. Minecraft **26.3** + Fabric Loader **0.20.1**（或更高）
@@ -67,6 +82,7 @@ Carpet Dan Addition（CDA）是 hai_dan 的 Carpet 附属模组。所有规则�
 /carpet fishingTreasureNoOpenWater imba
 /carpet fishingTreasureNoOpenWater false
 /carpet hoebedrockbreaking true
+/carpet botnoclip true
 ```
 
 规则值不区分大小写（`true` / `TRUE` 都可以）。`/carpet list dan` 列出 dan 分类下的全部规则。
@@ -131,6 +147,21 @@ Details:
 - Breaking time matches a pickaxe mining stone: a diamond hoe with Efficiency V and Haste II breaks it in 1 game tick.
 - The rule name is all lowercase: `hoebedrockbreaking`.
 
+#### `botnoclip`
+
+Stops Carpet fake players (bots) and players from pushing each other (off by default).
+
+| Value | Behaviour |
+| --- | --- |
+| `false` (default) | Vanilla: bots and players push each other |
+| `true` | Bots and players no longer push each other |
+
+Details:
+
+- Only the bot ↔ player push is blocked; player ↔ player and player ↔ mob pushing still work as usual.
+- Useful when you place a bot at a precise spot (fishing machine, farm AFK point) and then walk around without shoving it away.
+- The rule name is all lowercase: `botnoclip`.
+
 ### Installation
 
 1. Minecraft **26.3** + Fabric Loader **0.20.1** (or newer)
@@ -148,6 +179,7 @@ Server-side installation is enough; in single-player just drop it into `mods/`. 
 /carpet fishingTreasureNoOpenWater imba
 /carpet fishingTreasureNoOpenWater false
 /carpet hoebedrockbreaking true
+/carpet botnoclip true
 ```
 
 Rule values are case-insensitive (`true` / `TRUE` both work). `/carpet list dan` lists every rule in the dan category.

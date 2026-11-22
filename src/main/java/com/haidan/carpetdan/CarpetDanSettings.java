@@ -22,6 +22,14 @@ public final class CarpetDanSettings {
     @Rule(categories = {"dan"})
     public static boolean hoebedrockbreaking = false;
 
+    /**
+     * false - vanilla: bots and players push each other.
+     * true  - Carpet fake players (bots) and players no longer push each other,
+     *         so a bot stays where it was placed when a player walks into it.
+     */
+    @Rule(categories = {"dan"})
+    public static boolean botnoclip = false;
+
     public static boolean ignoreOpenWater() {
         return !"false".equalsIgnoreCase(fishingTreasureNoOpenWater);
     }
@@ -32,5 +40,9 @@ public final class CarpetDanSettings {
 
     public static boolean hoeBedrockBreaking() {
         return hoebedrockbreaking;
+    }
+
+    public static boolean botNoClip() {
+        return botnoclip;
     }
 }

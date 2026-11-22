@@ -8,5 +8,9 @@
   "carpet.rule.hoebedrockbreaking.name": "Hoe can break bedrock",
   "carpet.rule.hoebedrockbreaking.desc": "A hoe can break bedrock. No drops (Silk Touch included), 1 durability per block (Unbreaking applies); breaking time equals a pickaxe mining stone.",
   "carpet.rule.hoebedrockbreaking.extra.0": "false - vanilla (bedrock is unbreakable)",
-  "carpet.rule.hoebedrockbreaking.extra.1": "true - hoe can break bedrock"
+  "carpet.rule.hoebedrockbreaking.extra.1": "true - hoe can break bedrock",
+  "carpet.rule.botnoclip.name": "Bot no-clip against players",
+  "carpet.rule.botnoclip.desc": "Carpet fake players (bots) and players no longer push each other, so a placed bot is not shoved away when a player walks into it.",
+  "carpet.rule.botnoclip.extra.0": "false - vanilla (bots and players push each other)",
+  "carpet.rule.botnoclip.extra.1": "true - no pushing between bots and players"
 }

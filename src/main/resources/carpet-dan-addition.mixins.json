@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_25",
   "mixins": [
     "BlockMixin",
+    "EntityPushMixin",
     "FishingHookMixin",
     "FishingHookPredicateMixin",
     "ItemStackMixin"
