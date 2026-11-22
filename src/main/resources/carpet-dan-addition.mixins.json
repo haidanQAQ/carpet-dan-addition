@@ -7,7 +7,8 @@
     "EntityPushMixin",
     "FishingHookMixin",
     "FishingHookPredicateMixin",
-    "ItemStackMixin"
+    "ItemStackMixin",
+    "LivingEntityBotMixin"
   ],
   "injectors": {
     "defaultRequire": 1
