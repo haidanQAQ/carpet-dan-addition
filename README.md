@@ -68,12 +68,12 @@ Carpet Dan Addition（CDA）是 hai_dan 的 Carpet 附属模组。所有规则�
 
 #### `botToolSwap`
 
-假人捡起工具时，如果捡到的比主手上的更好，就自动换到主手（默认关）。
+假人捡起工具时，如果捡到的比主手上的更好，就自动换到主手（默认关）。物品按原版规则先进入背包，再在同一 tick 换到主手。
 
 | 值 | 行为 |
 | --- | --- |
 | `false`（默认） | 原版：假人保持主手物品 |
-| `true` | 捡到更好的工具时自动换上 |
+| `true` | 主手已有工具时，捡到更好的工具自动换上 |
 
 判断顺序：
 
@@ -84,6 +84,8 @@ Carpet Dan Addition（CDA）是 hai_dan 的 Carpet 附属模组。所有规则�
 
 - 只对“工具”生效：有耐久、且不是盔甲/鞘翅这类装备的物品。
 - 只处理 Carpet 假人（`/player` 生成的 bot），不影响真实玩家。
+- 主手为空时不判断：工具照常留在背包里，不会自动上手。
+- 不会无视拾取延迟把地上的物品吸过来：掉落物要等原版拾取延迟结束、真正进入背包后才会触发判断。
 - 旧工具会放回假人背包；背包满了才掉在脚边。
 - 规则名 `botToolSwap`。
 
@@ -188,7 +190,7 @@ Details:
 
 #### `botToolSwap`
 
-When a bot picks up a tool, it equips it if it is better than the current main-hand tool (off by default).
+When a bot picks up a tool, it equips it if it is better than the current main-hand tool (off by default). The item first enters the inventory through vanilla pickup, then moves to the main hand in the same tick.
 
 | Value | Behaviour |
 | --- | --- |
@@ -204,6 +206,8 @@ Details:
 
 - Only "tools" are considered: items with durability that are not equipment such as armour or elytra.
 - Only Carpet fake players (`/player` bots) are handled; real players are untouched.
+- An empty main hand is left alone: the picked-up tool simply stays in the inventory.
+- Items are never vacuumed off the ground: vanilla pickup delay and targeting run first, and the comparison only happens after the item has really entered the inventory.
 - The old tool goes back into the bot's inventory; it is dropped only when the inventory is full.
 - Rule name: `botToolSwap`.
 

@@ -4,6 +4,7 @@ import carpet.patches.EntityPlayerMPFake;
 import com.haidan.carpetdan.CarpetDanSettings;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -20,45 +21,68 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
  * /carpet botToolSwap: when a Carpet fake player picks up a tool, compare it with
- * the tool in its main hand and equip the better one.
+ * the tool already in its main hand and equip the better one.
+ *
+ * <p>Vanilla pickup rules (pickup delay, target UUID, inventory space) run first.
+ * We only act after the item has actually entered the bot's inventory, so dropped
+ * items are not vacuumed off the ground. An empty main hand is left untouched.</p>
  *
  * <p>Mending wins first; otherwise the higher total enchantment level wins, with
  * every curse level counted as -10.</p>
  */
 @Mixin(ItemEntity.class)
 public abstract class ItemEntityToolSwapMixin {
+    private static final ThreadLocal<ItemStack> DAN$PENDING_PICKUP =
+            ThreadLocal.withInitial(() -> ItemStack.EMPTY);
+
     @Inject(method = "playerTouch", at = @At("HEAD"))
+    private void dan$capturePickup(Player player, CallbackInfo ci) {
+        ItemEntity self = (ItemEntity) (Object) this;
+        DAN$PENDING_PICKUP.set(self.getItem().copy());
+    }
+
+    @Inject(method = "playerTouch", at = @At("TAIL"))
     private void dan$botToolSwap(Player player, CallbackInfo ci) {
+        ItemStack before = DAN$PENDING_PICKUP.get();
+        DAN$PENDING_PICKUP.set(ItemStack.EMPTY);
+
         if (!CarpetDanSettings.botToolSwapEnabled()) {
             return;
         }
         if (!(player instanceof EntityPlayerMPFake)) {
             return;
         }
+        if (before.isEmpty() || !isTool(before)) {
+            return;
+        }
 
         ItemEntity self = (ItemEntity) (Object) this;
-        ItemStack incoming = self.getItem();
-        if (incoming.isEmpty() || incoming.getCount() <= 0 || !isTool(incoming)) {
+        boolean didPickup = self.isRemoved() || self.getItem().getCount() < before.getCount();
+        if (!didPickup) {
             return;
         }
 
         ItemStack current = player.getMainHandItem();
-        if (!current.isEmpty() && (!isTool(current) || sameItem(current, incoming)
-                || !isBetter(current, incoming))) {
+        // Empty main hand: no comparison, just let the item stay in the inventory.
+        if (current.isEmpty() || !isTool(current) || sameItem(current, before)
+                || !isBetter(current, before)) {
             return;
         }
 
-        ItemStack picked = incoming.copyWithCount(1);
-        incoming.shrink(1);
-        if (incoming.isEmpty()) {
-            self.discard();
-        }
-
-        player.setItemInHand(InteractionHand.MAIN_HAND, picked);
-        if (!current.isEmpty()) {
-            if (!player.getInventory().add(current.copy())) {
-                player.spawnAtLocation((net.minecraft.server.level.ServerLevel) player.level(), current.copy());
+        ItemStack picked = before.copyWithCount(1);
+        int invSlot = -1;
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            if (ItemStack.isSameItemSameComponents(player.getInventory().getItem(i), picked)) {
+                invSlot = i;
+                break;
             }
+        }
+        if (invSlot >= 0) {
+            player.getInventory().removeItem(invSlot, 1);
+        }
+        player.setItemInHand(InteractionHand.MAIN_HAND, picked);
+        if (!player.getInventory().add(current.copy())) {
+            player.spawnAtLocation((ServerLevel) player.level(), current.copy());
         }
     }
 
