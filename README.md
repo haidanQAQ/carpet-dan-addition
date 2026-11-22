@@ -1,59 +1,81 @@
-﻿# Carpet Dan Addition
+# Carpet Dan Addition
 
 A [Carpet](https://github.com/gnembon/fabric-carpet) addon for **Minecraft 26.3** by **hai_dan**.
 It brings back the pre-1.16 fishing feel and collects small quality-of-life rules under the `dan` category.
 
-> **Vibe coding 澹版槑**锛氭湰椤圭洰鐨勪唬鐮佸拰鏂囨。鏄湪 AI 杈呭姪涓嬪畬鎴愮殑锛坴ibe coding锛夈€傚凡鍦ㄦ湰鏈?26.3 鏈嶅姟绔仛杩囧熀鏈姛鑳介獙璇侊紝浣嗘病鏈夎鐩栨墍鏈夊満鏅紱浣跨敤鍓嶈鑷璇勪及椋庨櫓锛屽嚭闂娆㈣繋鎻?issue銆?>
+> **Vibe coding 声明**：本项目的代码和文档是在 AI 辅助下完成的（vibe coding）。已在本机 26.3 服务端做过基本功能验证，但没有覆盖所有场景；使用前请自行评估风险，出问题欢迎提 issue。
+>
 > **Vibe-coding notice**: this project was built with AI assistance (vibe coding). It has been smoke-tested on a local 26.3 server, but not exhaustively. Use it at your own risk, and feel free to open an issue if something breaks.
 
-> 鐩墠鍙敮鎸?Minecraft 26.3 / Minecraft 26.3 only.
+> 目前只支持 Minecraft 26.3 / Minecraft 26.3 only.
 
 ---
 
-## 涓枃
+## 中文
 
-### 绠€浠?
-Carpet Dan Addition锛圕DA锛夋槸 hai_dan 鐨?Carpet 闄勫睘妯＄粍銆傛墍鏈夎鍒欓兘鏀惧湪 `/carpet` 鐨?**dan** 鍒嗙被涓嬶紝榛樿鍊间繚鎸佸師鐗堣涓恒€?
-### 鍔熻兘
+### 简介
+
+Carpet Dan Addition（CDA）是 hai_dan 的 Carpet 附属模组。所有规则都放在 `/carpet` 的 **dan** 分类下，默认值保持原版行为。
+
+### 功能
 
 #### `fishingTreasureNoOpenWater`
 
-杩樺師 1.16 涔嬪墠鐨勯挀楸兼墜鎰燂細涓嶉渶瑕?5脳4脳5 鐨勫紑鏀炬按鍩熶篃鑳介挀鍒板疂钘忋€?
-| 鍊?| 琛屼负 |
-| --- | --- |
-| `false`锛堥粯璁わ級 | 鍘熺増 1.16+锛氬彧鏈夋诞鏍囧浜庡紑鏀炬按鍩熸椂鎵嶅彲鑳介挀鍒板疂钘?|
-| `true` | 蹇界暐寮€鏀炬按鍩熼檺鍒讹紝瀹濊棌浠嶆寜鍘熺増鏉冮噸锛堢害 5%锛屾捣涔嬬湻椤?III 绾?11%锛?|
-| `imba` | 鍙娇鐢ㄥ疂钘忔垬鍒╁搧琛細100% 瀹濊棌锛屾病鏈夐奔鍜屽瀮鍦撅紝娴蜂箣鐪烽【涓嶅奖鍝嶇粨鏋?|
+还原 1.16 之前的钓鱼手感：不需要 5×4×5 的开放水域也能钓到宝藏。
 
-绠€鍗曡锛?
-- `true` / `imba`锛氫笉绠℃诞鏍囧懆鍥存湁娌℃湁 5脳4脳5 鐨勫紑鏀炬按鍩燂紝閮藉綋鎴愨€滅鍚堟潯浠垛€濓紝鎵€浠ュ疂钘忚兘姝ｅ父鍙備笌鎶藉彇銆?- `imba`锛氬共鑴嗚烦杩囬奔鍜屽瀮鍦撅紝鏀剁鏃剁洿鎺ュ幓瀹濊棌琛ㄩ噷鎶斤紝鎵€浠ユ瘡涓€绔块兘鏄疂钘忋€?
+| 值 | 行为 |
+| --- | --- |
+| `false`（默认） | 原版 1.16+：只有浮标处于开放水域时才可能钓到宝藏 |
+| `true` | 忽略开放水域限制，宝藏仍按原版权重（约 5%，海之眷顾 III 约 11%） |
+| `imba` | 只使用宝藏战利品表：100% 宝藏，没有鱼和垃圾，海之眷顾不影响结果 |
+
+简单说：
+
+- `true` / `imba`：不管浮标周围有没有 5×4×5 的开放水域，都当成“符合条件”，所以宝藏能正常参与抽取。
+- `imba`：干脆跳过鱼和垃圾，收竿时直接去宝藏表里抽，所以每一竿都是宝藏。
+
 #### `hoebedrockbreaking`
 
-鍏佽鐢ㄩ攧澶存寲鍩哄博锛堥粯璁ゅ叧锛夈€?
-| 鍊?| 琛屼负 |
-| --- | --- |
-| `false`锛堥粯璁わ級 | 鍘熺増锛氬熀宀╀笉鍙牬鍧?|
-| `true` | 閿勫ご鍙互鎸栧熀宀?|
+允许用锄头挖基岩（默认关）。
 
-缁嗚妭锛?
-- 涓嶄骇鐢熸帀钀界墿锛岀簿鍑嗛噰闆嗕篃娌℃湁鐢ㄣ€?- 姣忔寲鎺?1 鍧楁秷鑰楅攧澶?1 鐐硅€愪箙锛岃€愪箙闄勯瓟姝ｅ父鐢熸晥銆?- 鎸栨帢鑰楁椂绛変簬鈥滈晲瀛愭寲鐭冲ご鈥濓細閽荤煶閿?+ 鏁堢巼 V + 淇℃爣鎬ヨ揩 II 鍙互鍦?1 涓父鎴忓埢鍐呮寲鎺夈€?- 瑙勫垯鍚嶅氨鏄叏灏忓啓鐨?`hoebedrockbreaking`銆?
+| 值 | 行为 |
+| --- | --- |
+| `false`（默认） | 原版：基岩不可破坏 |
+| `true` | 锄头可以挖基岩 |
+
+细节：
+
+- 不产生掉落物，精准采集也没有用。
+- 每挖掉 1 块消耗锄头 1 点耐久，耐久附魔正常生效。
+- 挖掘耗时等于“镐子挖石头”：钻石锄 + 效率 V + 信标急迫 II 可以在 1 个游戏刻内挖掉。
+- 规则名就是全小写的 `hoebedrockbreaking`。
+
 #### `botnoclip`
 
-寮€鍚悗浠讳綍瀹炰綋閮芥帹涓嶅姩 Carpet 鍋囦汉锛坆ot锛夛紝鍋囦汉浼氫繚鎸佸師浣嶏紙榛樿鍏筹級銆?
-| 鍊?| 琛屼负 |
+开启后任何实体都推不动 Carpet 假人（bot），假人会保持原位（默认关）。
+
+| 值 | 行为 |
 | --- | --- |
-| `false`锛堥粯璁わ級 | 鍘熺増锛氱帺瀹跺拰鍋囦汉浼氫簰鐩告尋寮€ |
-| `true` | 鐜╁鍜岀敓鐗╅兘鎺ㄤ笉鍔ㄥ亣浜猴紱浣嗗亣浜哄鐜╁浠嶆湁鎺ㄥ姏 |
+| `false`（默认） | 原版：玩家和假人会互相挤开 |
+| `true` | 玩家和生物都推不动假人；但假人对玩家仍有推力 |
 
-缁嗚妭锛?
-- **杩欐槸璁捐琛屼负锛屼笉浼氬啀鏀?*锛歚true` 鏃跺亣浜轰細琚帓闄ゅ湪鈥滃彲琚帹鍔ㄧ殑瀹炰綋鈥濅箣澶栵紝鐜╁銆佺敓鐗┿€佸叾浠栧亣浜洪兘鎺ㄤ笉鍔ㄥ畠锛屼繚璇佹憜濂界殑鍋囦汉缁濆涓嶈纰版銆?- **宸茬煡闄愬埗**锛氬亣浜鸿嚜宸变粛浼氭妸鐜╁鎸ゅ紑锛屽弻鏂逛笉鑳藉畬鍏ㄩ噸鍙犮€傚師鍥犳槸鎺ㄦ尋鏈変竴鍗婂湪瀹㈡埛绔湰鍦拌绠楋紝瀹㈡埛绔妸鍋囦汉褰撴垚鏅€氱帺瀹跺疄浣擄紝鏈嶅姟绔彧鑳芥嫤浣忚嚜宸辫繖涓€渚х殑鎺ㄥ姏锛涜褰诲簳娑堥櫎灏卞緱鍏ㄥ眬鍏抽棴鐜╁涔嬮棿鐨勬帹鎸わ紝浼氭敼鍙樺叾浠栬涓猴紝鎵€浠ヤ笉鍋氥€?- 閫傚悎鈥滄憜濂藉亣浜哄悗涓嶅笇鏈涘畠琚姝€濈殑鍦烘櫙銆?- 瑙勫垯鍚嶅叏灏忓啓 `botnoclip`銆?
-### 瀹夎
+细节：
 
-1. Minecraft **26.3** + Fabric Loader **0.20.1**锛堟垨鏇撮珮锛?2. 瀹夎 [Fabric API](https://modrinth.com/mod/fabric-api) 涓?[Carpet](https://modrinth.com/mod/carpet)锛?6.3 鏋勫缓锛?3. 鎶?`carpet-dan-addition-*.jar` 鏀捐繘 `mods/`
-4. 鍚姩鏈嶅姟鍣ㄦ垨鍗曚汉涓栫晫
+- **这是设计行为，不会再改**：`true` 时假人会被排除在“可被推动的实体”之外，玩家、生物、其他假人都推不动它，保证摆好的假人绝对不被碰歪。
+- **已知限制**：假人自己仍会把玩家挤开，双方不能完全重叠。原因是推挤有一半在客户端本地计算，客户端把假人当成普通玩家实体，服务端只能拦住自己这一侧的推力；要彻底消除就得全局关闭玩家之间的推挤，会改变其他行为，所以不做。
+- 适合“摆好假人后不希望它被碰歪”的场景。
+- 规则名全小写 `botnoclip`。
 
-鏈嶅姟绔畨瑁呭嵆鍙敓鏁堬紱鍗曚汉娓告垙瑁呰繘 `mods/` 鍗冲彲銆傝仈鏈烘椂寤鸿瀹㈡埛绔篃瑁呬笂锛岀牬鍧忚繘搴︽樉绀烘洿涓€鑷淬€?
-### 浣跨敤
+### 安装
+
+1. Minecraft **26.3** + Fabric Loader **0.20.1**（或更高）
+2. 安装 [Fabric API](https://modrinth.com/mod/fabric-api) 与 [Carpet](https://modrinth.com/mod/carpet)（26.3 构建）
+3. 把 `carpet-dan-addition-*.jar` 放进 `mods/`
+4. 启动服务器或单人世界
+
+服务端安装即可生效；单人游戏装进 `mods/` 即可。联机时建议客户端也装上，破坏进度显示更一致。
+
+### 使用
 
 ```
 /carpet list dan
@@ -64,18 +86,24 @@ Carpet Dan Addition锛圕DA锛夋槸 hai_dan 鐨?Carpet 闄勫睘妯＄粍銆傛
 /carpet botnoclip true
 ```
 
-瑙勫垯鍊间笉鍖哄垎澶у皬鍐欙紙`true` / `TRUE` 閮藉彲浠ワ級銆俙/carpet list dan` 鍒楀嚭 dan 鍒嗙被涓嬬殑鍏ㄩ儴瑙勫垯銆?
-### 鏋勫缓
+规则值不区分大小写（`true` / `TRUE` 都可以）。`/carpet list dan` 列出 dan 分类下的全部规则。
 
-闇€瑕?**JDK 25**锛?
+### 构建
+
+需要 **JDK 25**：
+
 ```bash
 ./gradlew build
-# 浜х墿锛歜uild/libs/carpet-dan-addition-1.1.3+mc26.3.jar
+# 产物：build/libs/carpet-dan-addition-1.1.3+mc26.3.jar
 ```
 
-### 鍏煎鎬?
-- 浠呮敮鎸?Minecraft 26.3锛圕arpet 26.3 鐨?API 涓庢棫鐗堟湰涓嶅吋瀹癸級銆?- 涓?Lithium銆丗erriteCore 绛変紭鍖栨ā缁勬棤宸茬煡鍐茬獊銆?- 瑙勫垯浠ユ湇鍔＄涓哄噯锛涘崟浜烘父鎴忎綔鐢ㄤ簬鍐呯疆鏈嶅姟绔€?
-### 璁稿彲
+### 兼容性
+
+- 仅支持 Minecraft 26.3（Carpet 26.3 的 API 与旧版本不兼容）。
+- 与 Lithium、FerriteCore 等优化模组无已知冲突。
+- 规则以服务端为准；单人游戏作用于内置服务端。
+
+### 许可
 
 MIT
 
@@ -91,7 +119,7 @@ Carpet Dan Addition (CDA) is a Carpet addon by hai_dan. Every rule lives in the 
 
 #### `fishingTreasureNoOpenWater`
 
-Restores the pre-1.16 fishing feel: treasure can be caught without a 5脳4脳5 open water area.
+Restores the pre-1.16 fishing feel: treasure can be caught without a 5×4×5 open water area.
 
 | Value | Behaviour |
 | --- | --- |
