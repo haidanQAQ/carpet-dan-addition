@@ -9,8 +9,8 @@
   "carpet.rule.hoebedrockbreaking.desc": "用锄头可以破坏基岩：无掉落物（精准采集也不掉），每块消耗 1 点耐久（受耐久附魔影响）；挖掘时间等于镐子挖石头。",
   "carpet.rule.hoebedrockbreaking.extra.0": "false - 原版行为（基岩不可破坏）",
   "carpet.rule.hoebedrockbreaking.extra.1": "true - 锄头可以破坏基岩",
-  "carpet.rule.botnoclip.name": "玩家推不动假人",
-  "carpet.rule.botnoclip.desc": "玩家不再能把 Carpet 假人（bot）挤开，放好的假人会保持原位。注意：假人对玩家仍有推力，双方不能完全重叠。",
+  "carpet.rule.botnoclip.name": "假人不会被推动",
+  "carpet.rule.botnoclip.desc": "任何实体都推不动 Carpet 假人（bot），放好的假人会保持原位。注意：假人对玩家仍有推力，双方不能完全重叠。",
   "carpet.rule.botnoclip.extra.0": "false - 原版行为（假人和玩家会互相挤）",
-  "carpet.rule.botnoclip.extra.1": "true - 玩家推不动假人（假人仍能推动玩家）"
+  "carpet.rule.botnoclip.extra.1": "true - 任何实体都推不动假人（假人仍能推动玩家）"
 }
