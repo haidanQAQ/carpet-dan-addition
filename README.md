@@ -89,6 +89,22 @@ Carpet Dan Addition（CDA）是 hai_dan 的 Carpet 附属模组。所有规则�
 - 旧工具会放回假人背包；背包满了才掉在脚边。
 - 规则名 `botToolSwap`。
 
+#### `botdropall`
+
+默认开启。开启后可以用 `/bot <名字> dropall` 让假人把身上每个格子里有物品的堆叠一次性丢出来（命令需要 OP/权限等级 2）。
+
+| 值 | 行为 |
+| --- | --- |
+| `true`（默认） | 可以使用 `/bot <名字> dropall` |
+| `false` | 命令被禁用 |
+
+细节：
+
+- 遍历假人背包的所有格子（快捷栏、主背包、盔甲槽、副手），非空格子全部清空并丢出。
+- 物品以掉落物形式一次性出现在假人脚下，不是逐个丢。
+- 只对在线的假人（或玩家）生效；名字不存在会提示。
+- 规则名全小写 `botdropall`。
+
 ### 安装
 
 1. Minecraft **26.3** + Fabric Loader **0.20.1**（或更高）
@@ -108,6 +124,7 @@ Carpet Dan Addition（CDA）是 hai_dan 的 Carpet 附属模组。所有规则�
 /carpet hoebedrockbreaking true
 /carpet botnoclip true
 /carpet botToolSwap true
+/bot hai_dan dropall
 ```
 
 规则值不区分大小写（`true` / `TRUE` 都可以）。`/carpet list dan` 列出 dan 分类下的全部规则。
@@ -118,7 +135,7 @@ Carpet Dan Addition（CDA）是 hai_dan 的 Carpet 附属模组。所有规则�
 
 ```bash
 ./gradlew build
-# 产物：build/libs/carpet-dan-addition-1.2.0+mc26.3.jar
+# 产物：build/libs/carpet-dan-addition-1.3.0+mc26.3.jar
 ```
 
 ### 兼容性
@@ -211,6 +228,22 @@ Details:
 - The old tool goes back into the bot's inventory; it is dropped only when the inventory is full.
 - Rule name: `botToolSwap`.
 
+#### `botdropall`
+
+Enabled by default. When on, `/bot <name> dropall` empties every non-empty slot of the bot and throws all stacks out at once (requires OP / permission level 2).
+
+| Value | Behaviour |
+| --- | --- |
+| `true` (default) | `/bot <name> dropall` is available |
+| `false` | The command is disabled |
+
+Details:
+
+- Every inventory slot is visited (hotbar, main inventory, armour slots, offhand); all non-empty slots are cleared and their stacks are thrown out.
+- The stacks appear as item entities at once at the bot's feet instead of being tossed one by one.
+- Works on an online bot or player; an unknown name gets an error message.
+- The rule name is all lowercase: `botdropall`.
+
 ### Installation
 
 1. Minecraft **26.3** + Fabric Loader **0.20.1** (or newer)
@@ -230,6 +263,7 @@ Server-side installation is enough; in single-player just drop it into `mods/`. 
 /carpet hoebedrockbreaking true
 /carpet botnoclip true
 /carpet botToolSwap true
+/bot hai_dan dropall
 ```
 
 Rule values are case-insensitive (`true` / `TRUE` both work). `/carpet list dan` lists every rule in the dan category.
@@ -240,7 +274,7 @@ Requires **JDK 25**:
 
 ```bash
 ./gradlew build
-# output: build/libs/carpet-dan-addition-1.2.0+mc26.3.jar
+# output: build/libs/carpet-dan-addition-1.3.0+mc26.3.jar
 ```
 
 ### Compatibility

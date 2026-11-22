@@ -16,5 +16,9 @@
   "carpet.rule.botToolSwap.name": "Bots auto-equip better tools",
   "carpet.rule.botToolSwap.desc": "When a Carpet fake player picks up a tool, it switches it into the main hand if it is better: Mending wins first; otherwise the higher total enchantment level wins, with each curse level counted as -10.",
   "carpet.rule.botToolSwap.extra.0": "false - vanilla (bots keep whatever is in the main hand)",
-  "carpet.rule.botToolSwap.extra.1": "true - bots auto-switch to a better picked-up tool"
+  "carpet.rule.botToolSwap.extra.1": "true - bots auto-switch to a better picked-up tool",
+  "carpet.rule.botdropall.name": "Bot drop-all command",
+  "carpet.rule.botdropall.desc": "Enables /bot <name> dropall: every non-empty inventory slot of the bot is emptied and all stacks are thrown out at once.",
+  "carpet.rule.botdropall.extra.0": "true - /bot <name> dropall is available",
+  "carpet.rule.botdropall.extra.1": "false - the command is disabled"
 }

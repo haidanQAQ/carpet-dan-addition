@@ -16,5 +16,9 @@
   "carpet.rule.botToolSwap.name": "假人自动换更好的工具",
   "carpet.rule.botToolSwap.desc": "假人捡起工具时，如果比主手上的更好就自动换上：先看经验修补（只有一件有时优先它），否则比较附魔总等级，诅咒每级记 -10。",
   "carpet.rule.botToolSwap.extra.0": "false - 原版行为（假人保持主手物品）",
-  "carpet.rule.botToolSwap.extra.1": "true - 假人捡到更好的工具时自动换上"
+  "carpet.rule.botToolSwap.extra.1": "true - 假人捡到更好的工具时自动换上",
+  "carpet.rule.botdropall.name": "假人一键丢出全部物品",
+  "carpet.rule.botdropall.desc": "启用 /bot <名字> dropall：遍历假人背包的每个格子，把所有非空格子里的物品一次性丢出。",
+  "carpet.rule.botdropall.extra.0": "true - 可以使用 /bot <名字> dropall",
+  "carpet.rule.botdropall.extra.1": "false - 命令被禁用"
 }

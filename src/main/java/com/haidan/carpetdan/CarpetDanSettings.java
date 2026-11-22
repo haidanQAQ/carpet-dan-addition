@@ -40,6 +40,14 @@ public final class CarpetDanSettings {
     @Rule(categories = {"dan"})
     public static boolean botToolSwap = false;
 
+    /**
+     * true  - enables the {@code /bot <name> dropall} command: every non-empty slot of the bot's
+     *         inventory is emptied and all stacks are thrown out at once.
+     * false - the command reports that it is disabled.
+     */
+    @Rule(categories = {"dan"})
+    public static boolean botdropall = true;
+
     public static boolean ignoreOpenWater() {
         return !"false".equalsIgnoreCase(fishingTreasureNoOpenWater);
     }
@@ -58,5 +66,9 @@ public final class CarpetDanSettings {
 
     public static boolean botToolSwapEnabled() {
         return botToolSwap;
+    }
+
+    public static boolean botDropAllEnabled() {
+        return botdropall;
     }
 }
