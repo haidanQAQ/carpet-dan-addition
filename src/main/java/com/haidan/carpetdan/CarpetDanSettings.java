@@ -30,6 +30,16 @@ public final class CarpetDanSettings {
     @Rule(categories = {"dan"})
     public static boolean botnoclip = false;
 
+    /**
+     * false - vanilla: bots keep whatever they are holding.
+     * true  - when a bot picks up a tool, compare it with the main hand tool:
+     *         1) if exactly one of them has Mending, switch to that one;
+     *         2) otherwise switch if the picked tool has a higher total enchantment
+     *            level, where every curse level counts as -10.
+     */
+    @Rule(categories = {"dan"})
+    public static boolean botToolSwap = false;
+
     public static boolean ignoreOpenWater() {
         return !"false".equalsIgnoreCase(fishingTreasureNoOpenWater);
     }
@@ -44,5 +54,9 @@ public final class CarpetDanSettings {
 
     public static boolean botNoClip() {
         return botnoclip;
+    }
+
+    public static boolean botToolSwapEnabled() {
+        return botToolSwap;
     }
 }

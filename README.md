@@ -66,6 +66,27 @@ Carpet Dan Addition（CDA）是 hai_dan 的 Carpet 附属模组。所有规则�
 - 适合“摆好假人后不希望它被碰歪”的场景。
 - 规则名全小写 `botnoclip`。
 
+#### `botToolSwap`
+
+假人捡起工具时，如果捡到的比主手上的更好，就自动换到主手（默认关）。
+
+| 值 | 行为 |
+| --- | --- |
+| `false`（默认） | 原版：假人保持主手物品 |
+| `true` | 捡到更好的工具时自动换上 |
+
+判断顺序：
+
+1. **经验修补**：两件里只有一件有时，直接换上带经验修补的那件，不再比第 2 步；
+2. **附魔总等级**：两件都没有、或都有经验修补时，比较附魔等级之和，诅咒类每级记 **-10**。
+
+细节：
+
+- 只对“工具”生效：有耐久、且不是盔甲/鞘翅这类装备的物品。
+- 只处理 Carpet 假人（`/player` 生成的 bot），不影响真实玩家。
+- 旧工具会放回假人背包；背包满了才掉在脚边。
+- 规则名 `botToolSwap`。
+
 ### 安装
 
 1. Minecraft **26.3** + Fabric Loader **0.20.1**（或更高）
@@ -84,6 +105,7 @@ Carpet Dan Addition（CDA）是 hai_dan 的 Carpet 附属模组。所有规则�
 /carpet fishingTreasureNoOpenWater false
 /carpet hoebedrockbreaking true
 /carpet botnoclip true
+/carpet botToolSwap true
 ```
 
 规则值不区分大小写（`true` / `TRUE` 都可以）。`/carpet list dan` 列出 dan 分类下的全部规则。
@@ -94,7 +116,7 @@ Carpet Dan Addition（CDA）是 hai_dan 的 Carpet 附属模组。所有规则�
 
 ```bash
 ./gradlew build
-# 产物：build/libs/carpet-dan-addition-1.1.3+mc26.3.jar
+# 产物：build/libs/carpet-dan-addition-1.2.0+mc26.3.jar
 ```
 
 ### 兼容性
@@ -164,6 +186,27 @@ Details:
 - Useful when you place a bot at a precise spot and do not want it nudged out of position.
 - The rule name is all lowercase: `botnoclip`.
 
+#### `botToolSwap`
+
+When a bot picks up a tool, it equips it if it is better than the current main-hand tool (off by default).
+
+| Value | Behaviour |
+| --- | --- |
+| `false` (default) | Vanilla: bots keep whatever is in the main hand |
+| `true` | Auto-switch to a better picked-up tool |
+
+Order of comparison:
+
+1. **Mending**: if exactly one of the two has Mending, switch to that one and stop;
+2. **Total enchantment level**: if neither or both have Mending, switch to the one with the higher sum of enchantment levels, where every curse level counts as **-10**.
+
+Details:
+
+- Only "tools" are considered: items with durability that are not equipment such as armour or elytra.
+- Only Carpet fake players (`/player` bots) are handled; real players are untouched.
+- The old tool goes back into the bot's inventory; it is dropped only when the inventory is full.
+- Rule name: `botToolSwap`.
+
 ### Installation
 
 1. Minecraft **26.3** + Fabric Loader **0.20.1** (or newer)
@@ -182,6 +225,7 @@ Server-side installation is enough; in single-player just drop it into `mods/`. 
 /carpet fishingTreasureNoOpenWater false
 /carpet hoebedrockbreaking true
 /carpet botnoclip true
+/carpet botToolSwap true
 ```
 
 Rule values are case-insensitive (`true` / `TRUE` both work). `/carpet list dan` lists every rule in the dan category.
@@ -192,7 +236,7 @@ Requires **JDK 25**:
 
 ```bash
 ./gradlew build
-# output: build/libs/carpet-dan-addition-1.1.3+mc26.3.jar
+# output: build/libs/carpet-dan-addition-1.2.0+mc26.3.jar
 ```
 
 ### Compatibility

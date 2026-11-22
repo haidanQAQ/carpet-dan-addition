@@ -8,6 +8,7 @@
     "FishingHookMixin",
     "FishingHookPredicateMixin",
     "ItemStackMixin",
+    "ItemEntityToolSwapMixin",
     "LivingEntityBotMixin"
   ],
   "injectors": {
