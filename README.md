@@ -52,17 +52,18 @@ Carpet Dan Addition（CDA）是 hai_dan 的 Carpet 附属模组。所有规则�
 
 #### `botnoclip`
 
-取消 Carpet 假人（bot）与玩家之间的互相推动（默认关）。
+开启后玩家推不动 Carpet 假人（bot），假人会保持原位（默认关）。
 
 | 值 | 行为 |
 | --- | --- |
-| `false`（默认） | 原版：假人和玩家会互相挤开 |
-| `true` | 假人与玩家之间不再互相推动 |
+| `false`（默认） | 原版：玩家和假人会互相挤开 |
+| `true` | 玩家推不动假人；但假人对玩家仍有推力 |
 
 细节：
 
-- 只拦截“假人 ↔ 玩家”之间的推挤；玩家与玩家、玩家与生物不受影响。
-- 适合先摆好假人（钓鱼机、刷怪塔挂机点等），再在旁边走动也不会把它挤歪。
+- **已知限制**：开启后玩家走路不会推走假人，但假人仍会把玩家挤开，双方不能完全重叠。
+- 原因是推挤有一半在客户端本地计算：客户端把假人当成普通玩家实体，服务端只能拦住自己这一侧的推力，无法在不影响其他玩家逻辑的前提下彻底消除。
+- 适合“摆好假人后不希望它被碰歪”的场景；如果你能接受玩家之间也完全无推挤，可以再做一个更强的全局版本。
 - 规则名全小写 `botnoclip`。
 
 ### 安装
@@ -149,17 +150,18 @@ Details:
 
 #### `botnoclip`
 
-Stops Carpet fake players (bots) and players from pushing each other (off by default).
+Stops players from pushing Carpet fake players (bots) around, so a placed bot stays put (off by default).
 
 | Value | Behaviour |
 | --- | --- |
-| `false` (default) | Vanilla: bots and players push each other |
-| `true` | Bots and players no longer push each other |
+| `false` (default) | Vanilla: players and bots push each other |
+| `true` | Players cannot push bots; bots can still push players |
 
 Details:
 
-- Only the bot ↔ player push is blocked; player ↔ player and player ↔ mob pushing still work as usual.
-- Useful when you place a bot at a precise spot (fishing machine, farm AFK point) and then walk around without shoving it away.
+- **Known limitation**: players no longer shove bots away, but bots can still push players, so the two cannot fully overlap.
+- Half of the pushing is computed client-side: the client sees a bot as an ordinary player entity, so the server can only block the server-side half. Removing it completely would mean disabling all player-to-player pushing, which changes other behaviour.
+- Useful when you place a bot at a precise spot and do not want it nudged out of position. If you are fine with disabling all player-to-player pushing, a stronger global variant could be added later.
 - The rule name is all lowercase: `botnoclip`.
 
 ### Installation
