@@ -4,5 +4,9 @@
   "carpet.rule.fishingTreasureNoOpenWater.desc": "还原 1.16 之前的钓鱼：不需要 5x4x5 开放水域也能钓到宝藏。",
   "carpet.rule.fishingTreasureNoOpenWater.extra.0": "false - 原版行为（需要开放水域）",
   "carpet.rule.fishingTreasureNoOpenWater.extra.1": "true - 忽略开放水域限制，宝藏概率保持原版",
-  "carpet.rule.fishingTreasureNoOpenWater.extra.2": "imba - 只出宝藏，不出鱼和垃圾"
+  "carpet.rule.fishingTreasureNoOpenWater.extra.2": "imba - 只出宝藏，不出鱼和垃圾",
+  "carpet.rule.hoebedrockbreaking.name": "锄头破坏基岩",
+  "carpet.rule.hoebedrockbreaking.desc": "用锄头可以破坏基岩：无掉落物（精准采集也不掉），每块消耗 1 点耐久（受耐久附魔影响）；挖掘时间等于镐子挖石头。",
+  "carpet.rule.hoebedrockbreaking.extra.0": "false - 原版行为（基岩不可破坏）",
+  "carpet.rule.hoebedrockbreaking.extra.1": "true - 锄头可以破坏基岩"
 }

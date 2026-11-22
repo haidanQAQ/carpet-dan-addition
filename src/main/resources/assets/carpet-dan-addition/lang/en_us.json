@@ -4,5 +4,9 @@
   "carpet.rule.fishingTreasureNoOpenWater.desc": "Restores pre-1.16 fishing: treasure can be caught without a 5x4x5 open water area.",
   "carpet.rule.fishingTreasureNoOpenWater.extra.0": "false - vanilla (open water area required)",
   "carpet.rule.fishingTreasureNoOpenWater.extra.1": "true - ignore the open water requirement, normal treasure chance",
-  "carpet.rule.fishingTreasureNoOpenWater.extra.2": "imba - only treasure loot, no fish and no junk"
+  "carpet.rule.fishingTreasureNoOpenWater.extra.2": "imba - only treasure loot, no fish and no junk",
+  "carpet.rule.hoebedrockbreaking.name": "Hoe can break bedrock",
+  "carpet.rule.hoebedrockbreaking.desc": "A hoe can break bedrock. No drops (Silk Touch included), 1 durability per block (Unbreaking applies); breaking time equals a pickaxe mining stone.",
+  "carpet.rule.hoebedrockbreaking.extra.0": "false - vanilla (bedrock is unbreakable)",
+  "carpet.rule.hoebedrockbreaking.extra.1": "true - hoe can break bedrock"
 }

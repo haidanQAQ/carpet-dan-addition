@@ -34,6 +34,22 @@ Carpet Dan Addition（CDA）是 hai_dan 的 Carpet 附属模组。所有规则�
 - `true` / `imba`：不管浮标周围有没有 5×4×5 的开放水域，都当成“符合条件”，所以宝藏能正常参与抽取。
 - `imba`：干脆跳过鱼和垃圾，收竿时直接去宝藏表里抽，所以每一竿都是宝藏。
 
+#### `hoebedrockbreaking`
+
+允许用锄头挖基岩（默认关）。
+
+| 值 | 行为 |
+| --- | --- |
+| `false`（默认） | 原版：基岩不可破坏 |
+| `true` | 锄头可以挖基岩 |
+
+细节：
+
+- 不产生掉落物，精准采集也没有用。
+- 每挖掉 1 块消耗锄头 1 点耐久，耐久附魔正常生效。
+- 挖掘耗时等于“镐子挖石头”：钻石锄 + 效率 V + 信标急迫 II 可以在 1 个游戏刻内挖掉。
+- 规则名就是全小写的 `hoebedrockbreaking`。
+
 ### 安装
 
 1. Minecraft **26.3** + Fabric Loader **0.20.1**（或更高）
@@ -41,7 +57,7 @@ Carpet Dan Addition（CDA）是 hai_dan 的 Carpet 附属模组。所有规则�
 3. 把 `carpet-dan-addition-*.jar` 放进 `mods/`
 4. 启动服务器或单人世界
 
-服务端安装即可生效；客户端装不装都不影响联机。
+服务端安装即可生效；单人游戏装进 `mods/` 即可。联机时建议客户端也装上，破坏进度显示更一致。
 
 ### 使用
 
@@ -50,6 +66,7 @@ Carpet Dan Addition（CDA）是 hai_dan 的 Carpet 附属模组。所有规则�
 /carpet fishingTreasureNoOpenWater true
 /carpet fishingTreasureNoOpenWater imba
 /carpet fishingTreasureNoOpenWater false
+/carpet hoebedrockbreaking true
 ```
 
 规则值不区分大小写（`true` / `TRUE` 都可以）。`/carpet list dan` 列出 dan 分类下的全部规则。
@@ -60,7 +77,7 @@ Carpet Dan Addition（CDA）是 hai_dan 的 Carpet 附属模组。所有规则�
 
 ```bash
 ./gradlew build
-# 产物：build/libs/carpet-dan-addition-1.0.0+mc26.3.jar
+# 产物：build/libs/carpet-dan-addition-1.1.0+mc26.3.jar
 ```
 
 ### 兼容性
@@ -98,6 +115,22 @@ In plain terms:
 - `true` / `imba`: the bobber is always treated as sitting in open water, so treasure can be rolled anywhere.
 - `imba`: skips fish and junk entirely and rolls straight from the treasure table, so every catch is treasure.
 
+#### `hoebedrockbreaking`
+
+Lets a hoe mine bedrock (off by default).
+
+| Value | Behaviour |
+| --- | --- |
+| `false` (default) | Vanilla: bedrock cannot be broken |
+| `true` | A hoe can break bedrock |
+
+Details:
+
+- No drops, not even with Silk Touch.
+- Each broken block costs 1 durability; Unbreaking applies normally.
+- Breaking time matches a pickaxe mining stone: a diamond hoe with Efficiency V and Haste II breaks it in 1 game tick.
+- The rule name is all lowercase: `hoebedrockbreaking`.
+
 ### Installation
 
 1. Minecraft **26.3** + Fabric Loader **0.20.1** (or newer)
@@ -105,7 +138,7 @@ In plain terms:
 3. Drop `carpet-dan-addition-*.jar` into `mods/`
 4. Start the server or a single-player world
 
-Server-side installation is enough; clients do not need the mod to join.
+Server-side installation is enough; in single-player just drop it into `mods/`. In multiplayer, installing it on the client too gives consistent breaking progress.
 
 ### Usage
 
@@ -114,6 +147,7 @@ Server-side installation is enough; clients do not need the mod to join.
 /carpet fishingTreasureNoOpenWater true
 /carpet fishingTreasureNoOpenWater imba
 /carpet fishingTreasureNoOpenWater false
+/carpet hoebedrockbreaking true
 ```
 
 Rule values are case-insensitive (`true` / `TRUE` both work). `/carpet list dan` lists every rule in the dan category.
@@ -124,7 +158,7 @@ Requires **JDK 25**:
 
 ```bash
 ./gradlew build
-# output: build/libs/carpet-dan-addition-1.0.0+mc26.3.jar
+# output: build/libs/carpet-dan-addition-1.1.0+mc26.3.jar
 ```
 
 ### Compatibility
