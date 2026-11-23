@@ -30,7 +30,6 @@ Every rule lives in the `dan` category. Run `/carpet list dan` in game to see th
 | [`hoebedrockbreaking`](#hoebedrockbreaking) | `false` | Hoes can break bedrock; no drops, 1 durability each |
 | [`botnoclip`](#botnoclip) | `false` | Nothing can push Carpet fake players |
 | [`botToolSwap`](#bottoolswap) | `false` | Bots auto-equip a better tool they pick up |
-| [`botdropall`](#botdropall) | `true` | Enables `/bot <name> dropall` |
 
 ### `fishingTreasureNoOpenWater`
 
@@ -100,26 +99,17 @@ Details:
 - Items are never vacuumed off the ground: vanilla pickup delay runs first, and the comparison only happens after the item has really entered the inventory.
 - The old tool goes back into the bot's inventory; it is dropped only when the inventory is full.
 
-### `botdropall`
-
-Enabled by default. When on, `/bot <name> dropall` empties every non-empty slot of the bot and throws all stacks out at once.
-
-| Value | Behaviour |
-| --- | --- |
-| `true` (default) | `/bot <name> dropall` is available |
-| `false` | The command is disabled |
-
-Details:
-
-- Every inventory slot is visited (hotbar, main inventory, armour slots, offhand).
-- The stacks are thrown out with a 40-tick pickup delay and a bit of random velocity, so the bot does not instantly pick them back up.
-- Works on an online bot or player; an unknown name gets an error message.
-
 ## Commands
 
-### `/bot <name> dropall`
+### Dropping everything a bot holds
 
-Requires permission level 2 (OP). Drops every stack the bot is carrying, as described under [`botdropall`](#botdropall).
+This addon does not add a rule for it, because Carpet already ships the command:
+
+```
+/player <name> dropStack all
+```
+
+`dropStack all` empties every inventory slot of the bot and throws each full stack out. `/player <name> drop all` is the one-item-per-slot variant.
 
 ## Installation
 
@@ -140,8 +130,7 @@ Server-side installation is enough; in single-player just drop it into `mods/`. 
 /carpet hoebedrockbreaking true
 /carpet botnoclip true
 /carpet botToolSwap true
-/carpet setDefault botdropall true
-/bot hai_dan dropall
+/player hai_dan dropStack all
 ```
 
 Rule values are case-insensitive (`true` / `TRUE` both work). `/carpet setDefault` makes a value persistent; a plain `/carpet <rule> <value>` is temporary and resets on restart.
@@ -152,7 +141,7 @@ Requires **JDK 25**:
 
 ```bash
 ./gradlew build
-# output: build/libs/carpet-dan-addition-1.3.0+mc26.3.jar
+# output: build/libs/carpet-dan-addition-1.3.1+mc26.3.jar
 ```
 
 ## Compatibility

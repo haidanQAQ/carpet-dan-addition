@@ -30,7 +30,6 @@
 | [`hoebedrockbreaking`](#hoebedrockbreaking) | `false` | 锄头可以破坏基岩，无掉落，每块 1 耐久 |
 | [`botnoclip`](#botnoclip) | `false` | 任何实体都推不动假人 |
 | [`botToolSwap`](#bottoolswap) | `false` | 假人捡到更好的工具自动换上 |
-| [`botdropall`](#botdropall) | `true` | 启用 `/bot <名字> dropall` |
 
 ### `fishingTreasureNoOpenWater`
 
@@ -100,26 +99,17 @@
 - 不会无视拾取延迟把地上的物品吸过来：掉落物要等原版拾取延迟结束、真正进入背包后才会触发判断。
 - 旧工具会放回假人背包；背包满了才掉在脚边。
 
-### `botdropall`
-
-默认开启。开启后可以用 `/bot <名字> dropall` 让假人把身上每个格子里有物品的堆叠一次性丢出来。
-
-| 值 | 行为 |
-| --- | --- |
-| `true`（默认） | 可以使用 `/bot <名字> dropall` |
-| `false` | 命令被禁用 |
-
-细节：
-
-- 遍历假人背包的所有格子（快捷栏、主背包、盔甲槽、副手）。
-- 丢出的物品带 40 tick 拾取延迟和一点随机速度，不会被假人瞬间吸回。
-- 只对在线的假人（或玩家）生效；名字不存在会提示。
-
 ## 命令
 
-### `/bot <名字> dropall`
+### 让假人丢出全部物品
 
-需要权限等级 2（OP）。把假人身上的所有堆叠一次性丢出，详见 [`botdropall`](#botdropall)。
+这个功能不需要单独加规则，Carpet 本身就有命令：
+
+```
+/player <名字> dropStack all
+```
+
+`dropStack all` 会把假人背包每个格子里的整组物品都丢出来；`/player <名字> drop all` 则是每格只丢 1 个。
 
 ## 安装
 
@@ -140,8 +130,7 @@
 /carpet hoebedrockbreaking true
 /carpet botnoclip true
 /carpet botToolSwap true
-/carpet setDefault botdropall true
-/bot hai_dan dropall
+/player hai_dan dropStack all
 ```
 
 规则值不区分大小写（`true` / `TRUE` 都可以）。`/carpet setDefault` 会持久化，普通的 `/carpet <规则> <值>` 是临时的、重启后恢复默认。
@@ -152,7 +141,7 @@
 
 ```bash
 ./gradlew build
-# 产物：build/libs/carpet-dan-addition-1.3.0+mc26.3.jar
+# 产物：build/libs/carpet-dan-addition-1.3.1+mc26.3.jar
 ```
 
 ## 兼容性

@@ -3,7 +3,7 @@
   "id": "${id}",
   "version": "${version}",
   "name": "${name}",
-  "description": "A Carpet addon that restores pre-1.16 fishing behaviour and adds more Dan-style tweaks.",
+  "description": "A Carpet addon with vanilla-friendly rules: pre-1.16 fishing, hoe-mineable bedrock, and bot noclip / tool swap.",
   "authors": [
     "hai_dan"
   ],
