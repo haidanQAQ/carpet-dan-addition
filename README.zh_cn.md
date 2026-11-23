@@ -1,0 +1,166 @@
+# Carpet Dan Addition
+
+[English](README.md) | **简体中文**
+
+[![Release](https://img.shields.io/github/v/release/haidanQAQ/carpet-dan-addition?label=release)](https://github.com/haidanQAQ/carpet-dan-addition/releases)
+[![License](https://img.shields.io/github/license/haidanQAQ/carpet-dan-addition)](LICENSE)
+[![Minecraft](https://img.shields.io/badge/Minecraft-26.3-62b47a)](https://www.minecraft.net/)
+[![Issues](https://img.shields.io/github/issues/haidanQAQ/carpet-dan-addition)](https://github.com/haidanQAQ/carpet-dan-addition/issues)
+
+一个面向 **Minecraft 26.3** 的小型 [Carpet](https://github.com/gnembon/fabric-carpet) 扩展，收集了几条对原版玩法影响很小、适合单人生电和中小型技术服的规则。
+
+> **Vibe coding 声明**：本项目的代码和文档是在 AI 辅助下完成的（vibe coding）。已在本机 26.3 服务端做过基本功能验证，但没有覆盖所有场景；使用前请自行评估风险，出问题欢迎提 issue。
+
+## 环境要求
+
+| | |
+| --- | --- |
+| Minecraft | **仅 26.3** |
+| Fabric Loader | 0.20.1 或更高 |
+| Java | 25 |
+| 前置模组 | [Fabric API](https://modrinth.com/mod/fabric-api)、[Carpet](https://modrinth.com/mod/carpet)（26.3 构建） |
+
+## 规则一览
+
+所有规则都在 `dan` 分类下，游戏内用 `/carpet list dan` 查看。
+
+| 规则 | 默认值 | 作用 |
+| --- | --- | --- |
+| [`fishingTreasureNoOpenWater`](#fishingtreasurenoopenwater) | `false` | 还原 1.16 前钓鱼：不需要 5×4×5 开放水域 |
+| [`hoebedrockbreaking`](#hoebedrockbreaking) | `false` | 锄头可以破坏基岩，无掉落，每块 1 耐久 |
+| [`botnoclip`](#botnoclip) | `false` | 任何实体都推不动假人 |
+| [`botToolSwap`](#bottoolswap) | `false` | 假人捡到更好的工具自动换上 |
+| [`botdropall`](#botdropall) | `true` | 启用 `/bot <名字> dropall` |
+
+### `fishingTreasureNoOpenWater`
+
+还原 1.16 之前的钓鱼手感：不需要 5×4×5 的开放水域也能钓到宝藏。
+
+| 值 | 行为 |
+| --- | --- |
+| `false`（默认） | 原版：宝藏需要开放水域 |
+| `true` | 忽略开放水域限制，宝藏概率保持原版 5% |
+| `imba` | 只走宝藏表：不出鱼、不出垃圾 |
+
+细节：
+
+- 26.3 原版钓鱼是一张表里的三个权重条目（鱼 / 垃圾 / 宝藏），宝藏条目带 `in_open_water` 条件；`true` 只去掉这个条件，所以鱼和垃圾照常出。
+- `imba` 把钓鱼战利品表直接重定向到宝藏表，每一竿都是宝藏；这个模式下海之眷顾无效。
+- 任意水域都生效，包括 1×1 的小水坑。
+
+### `hoebedrockbreaking`
+
+用锄头可以破坏基岩。
+
+| 值 | 行为 |
+| --- | --- |
+| `false`（默认） | 原版：基岩不可破坏 |
+| `true` | 锄头可以破坏基岩 |
+
+细节：
+
+- 基岩没有战利品表，所以什么都不掉，精准采集也不掉。
+- 每块消耗 1 点耐久，耐久附魔正常生效。
+- 挖掘时间等于镐子挖石头；钻石锄或更好，配合效率 V 和信标急迫 II，可以 1 游戏刻破坏。
+- 只有锄头触发；其他工具仍然挖不动基岩。
+
+### `botnoclip`
+
+任何实体都推不动 Carpet 假人（bot），放好的假人会保持原位。
+
+| 值 | 行为 |
+| --- | --- |
+| `false`（默认） | 原版：假人和玩家会互相挤 |
+| `true` | 玩家、生物、其他假人都推不动假人 |
+
+细节：
+
+- **这是设计行为，不会再改**：`true` 时假人被排除在“可被推动的实体”之外。
+- **已知限制**：假人仍会把玩家挤开，双方不能完全重叠。原因是推挤有一半在客户端本地计算，客户端把假人当成普通玩家实体，服务端只能拦住自己这一侧的推力。
+
+### `botToolSwap`
+
+假人捡起工具时，如果捡到的比主手上的更好，就自动换到主手。
+
+| 值 | 行为 |
+| --- | --- |
+| `false`（默认） | 原版：假人保持主手物品 |
+| `true` | 捡到更好的工具自动换上 |
+
+判断顺序：
+
+1. **经验修补**：两件里只有一件有时，直接换上带经验修补的那件，不再比第 2 步。
+2. **附魔总等级**：两件都没有、或都有经验修补时，比较附魔等级之和，诅咒类每级记 **-10**。
+
+细节：
+
+- 只对“工具”生效：有耐久、且不是盔甲/鞘翅这类装备的物品。
+- 只处理 Carpet 假人，不影响真实玩家。
+- 主手为空时不判断：工具照常留在背包里，不会自动上手。
+- 不会无视拾取延迟把地上的物品吸过来：掉落物要等原版拾取延迟结束、真正进入背包后才会触发判断。
+- 旧工具会放回假人背包；背包满了才掉在脚边。
+
+### `botdropall`
+
+默认开启。开启后可以用 `/bot <名字> dropall` 让假人把身上每个格子里有物品的堆叠一次性丢出来。
+
+| 值 | 行为 |
+| --- | --- |
+| `true`（默认） | 可以使用 `/bot <名字> dropall` |
+| `false` | 命令被禁用 |
+
+细节：
+
+- 遍历假人背包的所有格子（快捷栏、主背包、盔甲槽、副手）。
+- 丢出的物品带 40 tick 拾取延迟和一点随机速度，不会被假人瞬间吸回。
+- 只对在线的假人（或玩家）生效；名字不存在会提示。
+
+## 命令
+
+### `/bot <名字> dropall`
+
+需要权限等级 2（OP）。把假人身上的所有堆叠一次性丢出，详见 [`botdropall`](#botdropall)。
+
+## 安装
+
+1. Minecraft **26.3** + Fabric Loader **0.20.1** 或更高。
+2. 安装 [Fabric API](https://modrinth.com/mod/fabric-api) 与 [Carpet](https://modrinth.com/mod/carpet)（26.3 构建）。
+3. 把 `carpet-dan-addition-*.jar` 放进 `mods/`。
+4. 启动服务器或单人世界。
+
+服务端安装即可生效；单人游戏装进 `mods/` 即可。联机时建议客户端也装上，破坏进度显示更一致。
+
+## 使用
+
+```
+/carpet list dan
+/carpet fishingTreasureNoOpenWater true
+/carpet fishingTreasureNoOpenWater imba
+/carpet fishingTreasureNoOpenWater false
+/carpet hoebedrockbreaking true
+/carpet botnoclip true
+/carpet botToolSwap true
+/carpet setDefault botdropall true
+/bot hai_dan dropall
+```
+
+规则值不区分大小写（`true` / `TRUE` 都可以）。`/carpet setDefault` 会持久化，普通的 `/carpet <规则> <值>` 是临时的、重启后恢复默认。
+
+## 构建
+
+需要 **JDK 25**：
+
+```bash
+./gradlew build
+# 产物：build/libs/carpet-dan-addition-1.3.0+mc26.3.jar
+```
+
+## 兼容性
+
+- 仅支持 Minecraft 26.3（Carpet 26.3 的 API 与旧版本不兼容）。
+- 与 Lithium、FerriteCore 等优化模组无已知冲突。
+- 规则以服务端为准；单人游戏作用于内置服务端。
+
+## 许可
+
+MIT，见 [LICENSE](LICENSE)。
