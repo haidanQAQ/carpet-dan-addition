@@ -40,6 +40,14 @@ public final class CarpetDanSettings {
     @Rule(categories = {"dan"})
     public static boolean botToolSwap = false;
 
+    /**
+     * false - vanilla: phantoms and bats spawn naturally.
+     * true  - natural spawning of phantoms and bats is disabled; spawn eggs and
+     *         commands still work.
+     */
+    @Rule(categories = {"dan"})
+    public static boolean noPhantomBatSpawning = false;
+
     public static boolean ignoreOpenWater() {
         return !"false".equalsIgnoreCase(fishingTreasureNoOpenWater);
     }
@@ -58,5 +66,9 @@ public final class CarpetDanSettings {
 
     public static boolean botToolSwapEnabled() {
         return botToolSwap;
+    }
+
+    public static boolean noPhantomBatSpawningEnabled() {
+        return noPhantomBatSpawning;
     }
 }

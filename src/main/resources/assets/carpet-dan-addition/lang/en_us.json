@@ -16,5 +16,9 @@
   "carpet.rule.botToolSwap.name": "Bots auto-equip better tools",
   "carpet.rule.botToolSwap.desc": "When a Carpet fake player picks up a tool, it switches it into the main hand if it is better: Mending wins first; otherwise the higher total enchantment level wins, with each curse level counted as -10.",
   "carpet.rule.botToolSwap.extra.0": "false - vanilla (bots keep whatever is in the main hand)",
-  "carpet.rule.botToolSwap.extra.1": "true - bots auto-switch to a better picked-up tool"
+  "carpet.rule.botToolSwap.extra.1": "true - bots auto-switch to a better picked-up tool",
+  "carpet.rule.noPhantomBatSpawning.name": "No phantom and bat spawning",
+  "carpet.rule.noPhantomBatSpawning.desc": "Disables natural spawning of phantoms and bats. Spawn eggs and commands still work; mobs already in the world are unaffected.",
+  "carpet.rule.noPhantomBatSpawning.extra.0": "false - vanilla (phantoms after insomnia, bats in dark caves)",
+  "carpet.rule.noPhantomBatSpawning.extra.1": "true - no natural phantom or bat spawning"
 }

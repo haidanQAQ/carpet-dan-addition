@@ -30,6 +30,7 @@
 | [`hoebedrockbreaking`](#hoebedrockbreaking) | `false` | 锄头可以破坏基岩，无掉落，每块 1 耐久 |
 | [`botnoclip`](#botnoclip) | `false` | 任何实体都推不动假人 |
 | [`botToolSwap`](#bottoolswap) | `false` | 假人捡到更好的工具自动换上 |
+| [`noPhantomBatSpawning`](#nophantombatspawning) | `false` | 不再自然生成幻翼与蝙蝠 |
 
 ### `fishingTreasureNoOpenWater`
 
@@ -99,7 +100,33 @@
 - 不会无视拾取延迟把地上的物品吸过来：掉落物要等原版拾取延迟结束、真正进入背包后才会触发判断。
 - 旧工具会放回假人背包；背包满了才掉在脚边。
 
+### `noPhantomBatSpawning`
+
+禁止幻翼与蝙蝠自然生成。
+
+| 值 | 行为 |
+| --- | --- |
+| `false`（默认） | 原版行为：失眠后夜晚生成幻翼，黑暗洞穴生成蝙蝠 |
+| `true` | 不再自然生成幻翼和蝙蝠 |
+
+细节：
+
+- 同时关掉两条原版生成路径：幻翼生成器（玩家连续几天不睡觉后才会尝试生成）和蝙蝠的生成检查。
+- 刷怪蛋和 `/summon` 仍然可用，已经存在的生物不受影响。
+- 刷怪笼生成的蝙蝠不受影响；只拦自然生成。
+
 ## 命令
+
+### 中文名假人
+
+Carpet 的 `/player` 原本只接受 ASCII 名字。本模组把名字参数换成了可加引号的字符串，所以中文名要**带引号**写：
+
+```
+/player "测试" spawn
+/player "测试" kill
+```
+
+不加引号的中文仍会被原版命令解析器拒绝（`/player 测试 spawn` 会报错）。引号形式是原版命令语法，原版客户端也能正常解析，不需要装客户端模组。
 
 ### 让假人丢出全部物品
 
@@ -130,6 +157,8 @@
 /carpet hoebedrockbreaking true
 /carpet botnoclip true
 /carpet botToolSwap true
+/carpet noPhantomBatSpawning true
+/player "测试" spawn
 /player hai_dan dropStack all
 ```
 
@@ -141,7 +170,7 @@
 
 ```bash
 ./gradlew build
-# 产物：build/libs/carpet-dan-addition-1.3.1+mc26.3.jar
+# 产物：build/libs/carpet-dan-addition-1.4.0+mc26.3.jar
 ```
 
 ## 兼容性
