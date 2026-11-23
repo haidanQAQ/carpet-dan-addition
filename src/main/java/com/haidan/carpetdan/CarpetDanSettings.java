@@ -48,6 +48,14 @@ public final class CarpetDanSettings {
     @Rule(categories = {"dan"})
     public static boolean noPhantomBatSpawning = false;
 
+    /**
+     * true  - /botmemo is available: save the position, rotation and actions of a bot,
+     *         then restore them later (also spawning the bot if it is offline).
+     * false - the command is disabled.
+     */
+    @Rule(categories = {"dan"})
+    public static boolean botmemo = true;
+
     public static boolean ignoreOpenWater() {
         return !"false".equalsIgnoreCase(fishingTreasureNoOpenWater);
     }
@@ -70,5 +78,9 @@ public final class CarpetDanSettings {
 
     public static boolean noPhantomBatSpawningEnabled() {
         return noPhantomBatSpawning;
+    }
+
+    public static boolean botMemoEnabled() {
+        return botmemo;
     }
 }

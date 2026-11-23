@@ -31,6 +31,7 @@ Every rule lives in the `dan` category. Run `/carpet list dan` in game to see th
 | [`botnoclip`](#botnoclip) | `false` | Nothing can push Carpet fake players |
 | [`botToolSwap`](#bottoolswap) | `false` | Bots auto-equip a better tool they pick up |
 | [`noPhantomBatSpawning`](#nophantombatspawning) | `false` | Phantoms and bats stop spawning naturally |
+| [`botmemo`](#botmemo) | `true` | `/botmemo` saves and restores a bot's state |
 
 ### `fishingTreasureNoOpenWater`
 
@@ -115,6 +116,23 @@ Details:
 - Spawn eggs and `/summon` still work, and mobs already in the world are untouched.
 - Bats spawned by a mob spawner are unaffected; only natural spawning is blocked.
 
+### `botmemo`
+
+Saves a fake player's position, rotation and current actions, and restores them later.
+
+| Value | Behaviour |
+| --- | --- |
+| `true` (default) | `/botmemo` is available |
+| `false` | The command is disabled |
+
+Details:
+
+- `/botmemo <name> save` remembers where the bot is, which way it faces and what it is doing (`use`, `attack`, `move`, ...). Saving again overwrites the old memo.
+- `/botmemo <name> run` teleports the bot back and restores the saved actions.
+- If the bot is offline, `run` spawns it at the saved position (same dimension, rotation and game mode) and then restores the actions.
+- Memos live in memory only and are lost on restart. Inventory, mount, health and potion effects are not saved.
+- Unicode names must be quoted, e.g. `/botmemo "测试" save`.
+
 ## Commands
 
 ### Unicode bot names
@@ -138,6 +156,15 @@ This addon does not add a rule for it, because Carpet already ships the command:
 
 `dropStack all` empties every inventory slot of the bot and throws each full stack out. `/player <name> drop all` is the one-item-per-slot variant.
 
+### Bot memo
+
+```
+/botmemo <name> save
+/botmemo <name> run
+```
+
+`save` remembers the bot's position, rotation and actions; `run` restores them and spawns the bot if it is offline. Requires the `botmemo` rule (on by default). Unicode names need quotes.
+
 ## Installation
 
 1. Minecraft **26.3** + Fabric Loader **0.20.1** or newer.
@@ -158,7 +185,10 @@ Server-side installation is enough; in single-player just drop it into `mods/`. 
 /carpet botnoclip true
 /carpet botToolSwap true
 /carpet noPhantomBatSpawning true
+/carpet botmemo true
 /player "测试" spawn
+/botmemo "测试" save
+/botmemo "测试" run
 /player hai_dan dropStack all
 ```
 
@@ -170,7 +200,7 @@ Requires **JDK 25**:
 
 ```bash
 ./gradlew build
-# output: build/libs/carpet-dan-addition-1.4.0+mc26.3.jar
+# output: build/libs/carpet-dan-addition-1.5.0+mc26.3.jar
 ```
 
 ## Compatibility

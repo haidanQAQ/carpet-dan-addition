@@ -20,5 +20,9 @@
   "carpet.rule.noPhantomBatSpawning.name": "不生成幻翼与蝙蝠",
   "carpet.rule.noPhantomBatSpawning.desc": "禁止幻翼与蝙蝠自然生成；刷怪蛋和命令仍然可用，已经存在的生物不受影响。",
   "carpet.rule.noPhantomBatSpawning.extra.0": "false - 原版行为（失眠后夜晚生成幻翼，黑暗洞穴生成蝙蝠）",
-  "carpet.rule.noPhantomBatSpawning.extra.1": "true - 不再自然生成幻翼和蝙蝠"
+  "carpet.rule.noPhantomBatSpawning.extra.1": "true - 不再自然生成幻翼和蝙蝠",
+  "carpet.rule.botmemo.name": "假人状态记忆",
+  "carpet.rule.botmemo.desc": "允许用 /botmemo <名字> save 记录假人的位置、朝向和当前动作，用 /botmemo <名字> run 恢复；假人不在线时会直接在记录的位置生成。",
+  "carpet.rule.botmemo.extra.0": "false - /botmemo 命令被禁用",
+  "carpet.rule.botmemo.extra.1": "true - 可以使用 /botmemo 保存和恢复假人状态"
 }

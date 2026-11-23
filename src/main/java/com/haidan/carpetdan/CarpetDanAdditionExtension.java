@@ -4,6 +4,8 @@ import carpet.CarpetExtension;
 import carpet.CarpetServer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.mojang.brigadier.CommandDispatcher;
+import net.minecraft.commands.CommandSourceStack;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -14,6 +16,11 @@ import java.util.Map;
 public class CarpetDanAdditionExtension implements CarpetExtension {
     private static final Gson GSON = new Gson();
     private static boolean settingsRegistered;
+
+    @Override
+    public void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher) {
+        BotMemoCommand.register(dispatcher);
+    }
 
     /**
      * Register our rules into Carpet's own {@link carpet.settings.SettingsManager}, so they show up

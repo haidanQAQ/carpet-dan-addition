@@ -13,7 +13,12 @@
     "ItemEntityToolSwapMixin",
     "LivingEntityBotMixin",
     "PhantomSpawnerMixin",
-    "PlayerCommandMixin"
+    "PlayerCommandMixin",
+    "PlayerListTickMixin",
+    "SuggestionQuotingMixin"
+  ],
+  "client": [
+    "ClientSuggestionQuotingMixin"
   ],
   "injectors": {
     "defaultRequire": 1

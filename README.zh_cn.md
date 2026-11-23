@@ -31,6 +31,7 @@
 | [`botnoclip`](#botnoclip) | `false` | 任何实体都推不动假人 |
 | [`botToolSwap`](#bottoolswap) | `false` | 假人捡到更好的工具自动换上 |
 | [`noPhantomBatSpawning`](#nophantombatspawning) | `false` | 不再自然生成幻翼与蝙蝠 |
+| [`botmemo`](#botmemo) | `true` | 保存/恢复假人的位置、朝向和动作 |
 
 ### `fishingTreasureNoOpenWater`
 
@@ -115,6 +116,23 @@
 - 刷怪蛋和 `/summon` 仍然可用，已经存在的生物不受影响。
 - 刷怪笼生成的蝙蝠不受影响；只拦自然生成。
 
+### `botmemo`
+
+记录假人的位置、朝向和当前动作，之后一键恢复。
+
+| 值 | 行为 |
+| --- | --- |
+| `true`（默认） | 可以使用 `/botmemo` |
+| `false` | 命令被禁用 |
+
+细节：
+
+- `/botmemo <名字> save` 记住假人在哪、朝哪、正在做什么（`use`、`attack`、`move` 等）；再次 save 会覆盖旧记录。
+- `/botmemo <名字> run` 把假人传送回去并恢复保存的动作。
+- 假人不在线时，`run` 会直接在记录的位置生成它（同维度、同朝向、同游戏模式），再恢复动作。
+- 记录只在内存里，重启服务器后丢失；不保存背包、坐骑、血量和药水效果。
+- 中文名要加引号，例如 `/botmemo "测试" save`。
+
 ## 命令
 
 ### 中文名假人
@@ -138,6 +156,15 @@ Carpet 的 `/player` 原本只接受 ASCII 名字。本模组把名字参数换�
 
 `dropStack all` 会把假人背包每个格子里的整组物品都丢出来；`/player <名字> drop all` 则是每格只丢 1 个。
 
+### 假人状态记忆
+
+```
+/botmemo <名字> save
+/botmemo <名字> run
+```
+
+`save` 记录假人的位置、朝向和当前动作；`run` 恢复这些状态，假人不在线时会直接生成。需要 `botmemo` 规则（默认开启）。中文名要加引号。
+
 ## 安装
 
 1. Minecraft **26.3** + Fabric Loader **0.20.1** 或更高。
@@ -158,7 +185,10 @@ Carpet 的 `/player` 原本只接受 ASCII 名字。本模组把名字参数换�
 /carpet botnoclip true
 /carpet botToolSwap true
 /carpet noPhantomBatSpawning true
+/carpet botmemo true
 /player "测试" spawn
+/botmemo "测试" save
+/botmemo "测试" run
 /player hai_dan dropStack all
 ```
 
@@ -170,7 +200,7 @@ Carpet 的 `/player` 原本只接受 ASCII 名字。本模组把名字参数换�
 
 ```bash
 ./gradlew build
-# 产物：build/libs/carpet-dan-addition-1.4.0+mc26.3.jar
+# 产物：build/libs/carpet-dan-addition-1.5.0+mc26.3.jar
 ```
 
 ## 兼容性
