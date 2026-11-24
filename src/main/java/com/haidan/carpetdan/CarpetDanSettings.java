@@ -56,6 +56,25 @@ public final class CarpetDanSettings {
     @Rule(categories = {"dan"})
     public static boolean botmemo = true;
 
+    /**
+     * true  - /player accepts quoted Unicode names such as "测试".
+     * false - the vanilla name argument is kept (ASCII only).
+     *
+     * <p>The command tree is built once at startup, so a change takes effect after a restart
+     * or reload.</p>
+     */
+    @Rule(categories = {"dan"})
+    public static boolean botChineseName = true;
+
+    /**
+     * false - vanilla: a dead player's items are scattered on the ground.
+     * true  - a dead player's items are stored in one or two chests at the death spot.
+     *         No protection, no owner label, no experience storage. Chests that do not fit
+     *         inside the world height limits are overwritten into the ground as a last resort.
+     */
+    @Rule(categories = {"dan"})
+    public static boolean deathchest = false;
+
     public static boolean ignoreOpenWater() {
         return !"false".equalsIgnoreCase(fishingTreasureNoOpenWater);
     }
@@ -82,5 +101,13 @@ public final class CarpetDanSettings {
 
     public static boolean botMemoEnabled() {
         return botmemo;
+    }
+
+    public static boolean botChineseNameEnabled() {
+        return botChineseName;
+    }
+
+    public static boolean deathChestEnabled() {
+        return deathchest;
     }
 }

@@ -24,5 +24,13 @@
   "carpet.rule.botmemo.name": "假人状态记忆",
   "carpet.rule.botmemo.desc": "允许用 /botmemo <名字> save 记录假人的位置、朝向和当前动作，用 /botmemo <名字> run 恢复；假人不在线时会直接在记录的位置生成。",
   "carpet.rule.botmemo.extra.0": "false - /botmemo 命令被禁用",
-  "carpet.rule.botmemo.extra.1": "true - 可以使用 /botmemo 保存和恢复假人状态"
+  "carpet.rule.botmemo.extra.1": "true - 可以使用 /botmemo 保存和恢复假人状态",
+  "carpet.rule.botChineseName.name": "假人中文名",
+  "carpet.rule.botChineseName.desc": "允许 Carpet 的 /player 命令使用带引号的中文名，例如 /player \"测试\" spawn。关闭后带中文名的 /player 命令会被拒绝，切换立即生效。",
+  "carpet.rule.botChineseName.extra.0": "false - 拒绝带中文名的 /player 命令",
+  "carpet.rule.botChineseName.extra.1": "true - /player 接受带引号的中文名",
+  "carpet.rule.deathchest.name": "死亡箱子",
+  "carpet.rule.deathchest.desc": "玩家死亡后，物品会装进死亡点的 1-2 个箱子（每箱 27 组），而不是散落一地。不做保护、不标记主人、不存经验。",
+  "carpet.rule.deathchest.extra.0": "false - 原版行为（物品掉在地上）",
+  "carpet.rule.deathchest.extra.1": "true - 物品装进死亡点的箱子"
 }

@@ -13,7 +13,10 @@ import org.spongepowered.asm.mixin.injection.Redirect;
  * {@code 测试} can be used in {@code /player <name> spawn} and the other player subcommands.
  *
  * <p>The replacement is still a vanilla Brigadier argument type ({@code brigadier:string} with
- * {@code quotable_phrase}), so vanilla clients receive a command tree they already understand.
+ * {@code quotable_phrase}), so vanilla clients receive a command tree they already understand.</p>
+ *
+ * <p>Whether Unicode names are actually allowed is enforced by {@link PlayerChineseNameGateMixin}
+ * at execution time, so the {@code botChineseName} rule can be toggled without a restart.</p>
  */
 @Mixin(targets = "carpet.commands.PlayerCommand")
 public class PlayerCommandMixin {

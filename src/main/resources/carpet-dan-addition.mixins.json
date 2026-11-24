@@ -6,7 +6,9 @@
     "BatMixin",
     "BlockMixin",
     "CategoryOrderMixin",
+    "DeathChestMixin",
     "EntityPushMixin",
+    "EntityPlayerMPFakeMixin",
     "FishingHookMixin",
     "FishingHookPredicateMixin",
     "ItemStackMixin",
@@ -14,6 +16,7 @@
     "LivingEntityBotMixin",
     "PhantomSpawnerMixin",
     "PlayerCommandMixin",
+    "PlayerChineseNameGateMixin",
     "PlayerListTickMixin",
     "SuggestionQuotingMixin"
   ],

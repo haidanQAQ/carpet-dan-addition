@@ -32,6 +32,8 @@
 | [`botToolSwap`](#bottoolswap) | `false` | 假人捡到更好的工具自动换上 |
 | [`noPhantomBatSpawning`](#nophantombatspawning) | `false` | 不再自然生成幻翼与蝙蝠 |
 | [`botmemo`](#botmemo) | `true` | 保存/恢复假人的位置、朝向和动作 |
+| [`botChineseName`](#botchinesename) | `true` | `/player` 接受带引号的中文名 |
+| [`deathchest`](#deathchest) | `false` | 死亡后物品放进死亡点的箱子 |
 
 ### `fishingTreasureNoOpenWater`
 
@@ -133,11 +135,44 @@
 - 记录只在内存里，重启服务器后丢失；不保存背包、坐骑、血量和药水效果。
 - 中文名要加引号，例如 `/botmemo "测试" save`。
 
+### `botChineseName`
+
+允许 Carpet 的 `/player` 命令接受带引号的中文名。
+
+| 值 | 行为 |
+| --- | --- |
+| `true`（默认） | `/player "测试" spawn` 可用 |
+| `false` | 拒绝带中文名的 `/player` 命令 |
+
+细节：
+
+- 名字必须加引号；不加引号的中文仍会被原版命令解析器拒绝。
+- 切换规则立即生效，不需要重启。
+- 参数类型仍是原版 `brigadier:string`，原版客户端能正常解析，不需要装客户端模组。
+
+### `deathchest`
+
+死亡后把物品放进死亡点的箱子里，而不是散落在地上。
+
+| 值 | 行为 |
+| --- | --- |
+| `false`（默认） | 原版：物品掉在地上 |
+| `true` | 物品放进死亡位置的箱子 |
+
+细节：
+
+- 最多 27 组进一个箱子；28–54 组放两个箱子，沿 Y 轴上下叠放。
+- 带消失诅咒的物品照常销毁；不保存经验；箱子没有保护，也不标记主人。
+- 空位先向上找、再向下找；只认空气，水和岩浆都不算空位。
+- 死在限高之外时，从最近的高度限制开始找（上方从上往下，下方从下往上）。
+- 找不到空位就覆盖原地方块；遇到方块实体不覆盖，继续向上找。
+- 箱子是普通箱子，漏斗、大箱子、`/data` 都能正常用。
+
 ## 命令
 
 ### 中文名假人
 
-Carpet 的 `/player` 原本只接受 ASCII 名字。本模组把名字参数换成了可加引号的字符串，所以中文名要**带引号**写：
+Carpet 的 `/player` 原本只接受 ASCII 名字。`botChineseName` 规则开启时（默认），名字参数会被换成可加引号的字符串，所以中文名要**带引号**写：
 
 ```
 /player "测试" spawn
@@ -145,6 +180,8 @@ Carpet 的 `/player` 原本只接受 ASCII 名字。本模组把名字参数换�
 ```
 
 不加引号的中文仍会被原版命令解析器拒绝（`/player 测试 spawn` 会报错）。引号形式是原版命令语法，原版客户端也能正常解析，不需要装客户端模组。
+
+用 `/carpet botChineseName false` 可以关闭：关闭后带中文名的 `/player` 命令会被拒绝并提示，改回 `true` 立即生效。
 
 ### 让假人丢出全部物品
 
@@ -186,6 +223,7 @@ Carpet 的 `/player` 原本只接受 ASCII 名字。本模组把名字参数换�
 /carpet botToolSwap true
 /carpet noPhantomBatSpawning true
 /carpet botmemo true
+/carpet botChineseName true
 /player "测试" spawn
 /botmemo "测试" save
 /botmemo "测试" run
@@ -200,7 +238,7 @@ Carpet 的 `/player` 原本只接受 ASCII 名字。本模组把名字参数换�
 
 ```bash
 ./gradlew build
-# 产物：build/libs/carpet-dan-addition-1.5.0+mc26.3.jar
+# 产物：build/libs/carpet-dan-addition-1.5.1+mc26.3.jar
 ```
 
 ## 兼容性

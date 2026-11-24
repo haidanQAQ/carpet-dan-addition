@@ -32,6 +32,8 @@ Every rule lives in the `dan` category. Run `/carpet list dan` in game to see th
 | [`botToolSwap`](#bottoolswap) | `false` | Bots auto-equip a better tool they pick up |
 | [`noPhantomBatSpawning`](#nophantombatspawning) | `false` | Phantoms and bats stop spawning naturally |
 | [`botmemo`](#botmemo) | `true` | `/botmemo` saves and restores a bot's state |
+| [`botChineseName`](#botchinesename) | `true` | `/player` accepts quoted Unicode names |
+| [`deathchest`](#deathchest) | `false` | Items go into chests at the death spot |
 
 ### `fishingTreasureNoOpenWater`
 
@@ -133,11 +135,44 @@ Details:
 - Memos live in memory only and are lost on restart. Inventory, mount, health and potion effects are not saved.
 - Unicode names must be quoted, e.g. `/botmemo "测试" save`.
 
+### `botChineseName`
+
+Allows Carpet's `/player` command to accept quoted Unicode names.
+
+| Value | Behaviour |
+| --- | --- |
+| `true` (default) | `/player "测试" spawn` works |
+| `false` | Unicode `/player` commands are rejected |
+
+Details:
+
+- Names must be quoted; unquoted Unicode is still rejected by the vanilla command parser.
+- Toggling the rule takes effect immediately; no restart is needed.
+- The argument type is still vanilla `brigadier:string`, so vanilla clients understand the quoted form; no client mod is required.
+
+### `deathchest`
+
+Puts a dead player's items into chests at the death spot instead of scattering them on the ground.
+
+| Value | Behaviour |
+| --- | --- |
+| `false` (default) | Vanilla: items drop on the ground |
+| `true` | Items are moved into chests at the death location |
+
+Details:
+
+- Up to 27 stacks go into one chest; 28–54 stacks go into two chests stacked vertically.
+- Items with Curse of Vanishing are destroyed as usual. XP is not stored. Chests are not protected and are not marked as owned.
+- Free spots are searched upwards first, then downwards; only air counts as free (water and lava do not).
+- If the player dies outside the world height, the search starts from the nearest height limit (top-down above the world, bottom-up below it).
+- If no free spot exists, blocks are overwritten in place to make room; block entities are never overwritten and the search keeps going up.
+- Chests are ordinary chests, so hoppers, double chests and `/data` work normally.
+
 ## Commands
 
 ### Unicode bot names
 
-Carpet's `/player` command normally accepts only ASCII names. This addon swaps its name argument to a quoted string, so Unicode names work when they are written **in quotes**:
+Carpet's `/player` command normally accepts only ASCII names. With the `botChineseName` rule on (default), the name argument is swapped to a quoted string, so Unicode names work when they are written **in quotes**:
 
 ```
 /player "测试" spawn
@@ -145,6 +180,8 @@ Carpet's `/player` command normally accepts only ASCII names. This addon swaps i
 ```
 
 Unquoted names are still restricted by the vanilla command parser, so `/player 测试 spawn` is rejected. Vanilla clients can parse the quoted form, so no client mod is needed.
+
+Turn the feature off with `/carpet botChineseName false`; Unicode `/player` commands are then rejected with a message, and turning it back on takes effect immediately.
 
 ### Dropping everything a bot holds
 
@@ -186,6 +223,7 @@ Server-side installation is enough; in single-player just drop it into `mods/`. 
 /carpet botToolSwap true
 /carpet noPhantomBatSpawning true
 /carpet botmemo true
+/carpet botChineseName true
 /player "测试" spawn
 /botmemo "测试" save
 /botmemo "测试" run
@@ -200,7 +238,7 @@ Requires **JDK 25**:
 
 ```bash
 ./gradlew build
-# output: build/libs/carpet-dan-addition-1.5.0+mc26.3.jar
+# output: build/libs/carpet-dan-addition-1.5.1+mc26.3.jar
 ```
 
 ## Compatibility

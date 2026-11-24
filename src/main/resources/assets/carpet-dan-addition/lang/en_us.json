@@ -24,5 +24,13 @@
   "carpet.rule.botmemo.name": "Bot memo (save/restore bot state)",
   "carpet.rule.botmemo.desc": "Allows /botmemo <name> save to remember a bot's position, rotation and current actions, and /botmemo <name> run to restore them; if the bot is offline it is spawned at the saved position.",
   "carpet.rule.botmemo.extra.0": "false - the /botmemo command is disabled",
-  "carpet.rule.botmemo.extra.1": "true - /botmemo can save and restore bot state"
+  "carpet.rule.botmemo.extra.1": "true - /botmemo can save and restore bot state",
+  "carpet.rule.botChineseName.name": "Unicode bot names",
+  "carpet.rule.botChineseName.desc": "Allows Carpet's /player command to accept quoted Unicode names such as \"测试\". When off, Unicode /player commands are rejected; toggling takes effect immediately.",
+  "carpet.rule.botChineseName.extra.0": "false - Unicode /player commands are rejected",
+  "carpet.rule.botChineseName.extra.1": "true - /player accepts quoted Unicode names",
+  "carpet.rule.deathchest.name": "Death chest",
+  "carpet.rule.deathchest.desc": "When a player dies, their items are stored in one or two chests (27 stacks each) at the death spot instead of being scattered. No protection, no owner label, no experience storage.",
+  "carpet.rule.deathchest.extra.0": "false - vanilla (items drop on the ground)",
+  "carpet.rule.deathchest.extra.1": "true - items go into chests at the death spot"
 }
