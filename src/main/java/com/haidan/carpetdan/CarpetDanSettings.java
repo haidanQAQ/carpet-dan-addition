@@ -36,6 +36,8 @@ public final class CarpetDanSettings {
      *         1) if exactly one of them has Mending, switch to that one;
      *         2) otherwise switch if the picked tool has a higher total enchantment
      *            level, where every curse level counts as -10.
+     *         Also, when the held tool has 10% durability or less left (minimum 1 point),
+     *         swap it for the same tool with the most durability in the inventory.
      */
     @Rule(categories = {"dan"})
     public static boolean botToolSwap = false;
@@ -48,6 +50,16 @@ public final class CarpetDanSettings {
      */
     @Rule(categories = {"dan"})
     public static boolean noBatSpawning = false;
+
+    /**
+     * false - vanilla: aquatic mobs keep spawning naturally.
+     * true  - natural spawning of water_creature (fish, dolphins), water_ambient (squid),
+     *         underground_water_creature and axolotls is disabled through Carpet's spawn rate
+     *         table (the same thing /spawn rates writes to). Existing mobs, spawn eggs,
+     *         spawners and commands are unaffected.
+     */
+    @Rule(categories = {"dan"})
+    public static boolean noAquaticSpawning = false;
 
     /**
      * true  - /botmemo is available: save the position, rotation and actions of a bot,
@@ -98,6 +110,10 @@ public final class CarpetDanSettings {
 
     public static boolean noBatSpawningEnabled() {
         return noBatSpawning;
+    }
+
+    public static boolean noAquaticSpawningEnabled() {
+        return noAquaticSpawning;
     }
 
     public static boolean botMemoEnabled() {

@@ -36,6 +36,21 @@ public class CarpetDanAdditionExtension implements CarpetExtension {
     }
 
     @Override
+    public void onServerLoaded(net.minecraft.server.MinecraftServer server) {
+        BotMemoCommand.loadPersisted();
+    }
+
+    @Override
+    public void onServerClosed(net.minecraft.server.MinecraftServer server) {
+        BotMemoCommand.savePersisted();
+    }
+
+    @Override
+    public void onTick(net.minecraft.server.MinecraftServer server) {
+        SpawnRateControl.tick();
+    }
+
+    @Override
     public Map<String, String> canHasTranslations(String lang) {
         String path = "assets/" + CarpetDanAddition.MOD_ID + "/lang/" + lang + ".json";
         try (InputStream in = CarpetDanAdditionExtension.class.getClassLoader().getResourceAsStream(path)) {

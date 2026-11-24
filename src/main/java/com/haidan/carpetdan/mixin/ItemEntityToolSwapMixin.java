@@ -9,7 +9,10 @@ import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ShearsItem;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -46,10 +49,10 @@ public abstract class ItemEntityToolSwapMixin {
         ItemStack before = DAN$PENDING_PICKUP.get();
         DAN$PENDING_PICKUP.set(ItemStack.EMPTY);
 
-        if (!CarpetDanSettings.botToolSwapEnabled()) {
+        if (!(player instanceof EntityPlayerMPFake)) {
             return;
         }
-        if (!(player instanceof EntityPlayerMPFake)) {
+        if (!CarpetDanSettings.botToolSwapEnabled()) {
             return;
         }
         if (before.isEmpty() || !isTool(before)) {
@@ -63,9 +66,12 @@ public abstract class ItemEntityToolSwapMixin {
         }
 
         ItemStack current = player.getMainHandItem();
+        boolean sameKind = sameToolType(current, before);
+        boolean better = isBetter(current, before);
         // Empty main hand: no comparison, just let the item stay in the inventory.
-        if (current.isEmpty() || !isTool(current) || sameItem(current, before)
-                || !isBetter(current, before)) {
+        // Only compare tools of the same kind (a bow must never replace a fishing rod),
+        // while a stone pickaxe may still be replaced by a better pickaxe.
+        if (current.isEmpty() || !isTool(current) || !sameKind || !better) {
             return;
         }
 
@@ -90,8 +96,16 @@ public abstract class ItemEntityToolSwapMixin {
         return stack.isDamageableItem() && !stack.has(DataComponents.EQUIPPABLE);
     }
 
-    private static boolean sameItem(ItemStack a, ItemStack b) {
-        return ItemStack.isSameItemSameComponents(a, b);
+    private static boolean sameToolType(ItemStack a, ItemStack b) {
+        if (ItemStack.isSameItem(a, b)) {
+            return true;
+        }
+        return (a.is(ItemTags.PICKAXES) && b.is(ItemTags.PICKAXES))
+                || (a.is(ItemTags.AXES) && b.is(ItemTags.AXES))
+                || (a.is(ItemTags.SHOVELS) && b.is(ItemTags.SHOVELS))
+                || (a.is(ItemTags.HOES) && b.is(ItemTags.HOES))
+                || (a.is(ItemTags.SWORDS) && b.is(ItemTags.SWORDS))
+                || (a.getItem() instanceof ShearsItem && b.getItem() instanceof ShearsItem);
     }
 
     private static boolean isBetter(ItemStack current, ItemStack candidate) {
@@ -100,7 +114,13 @@ public abstract class ItemEntityToolSwapMixin {
         if (currentMending != candidateMending) {
             return candidateMending;
         }
-        return score(candidate) > score(current);
+        int currentScore = score(current);
+        int candidateScore = score(candidate);
+        if (candidateScore != currentScore) {
+            return candidateScore > currentScore;
+        }
+        // Same enchantment total (often both plain): fall back to the material tier.
+        return candidate.getMaxDamage() > current.getMaxDamage();
     }
 
     private static boolean hasMending(ItemStack stack) {

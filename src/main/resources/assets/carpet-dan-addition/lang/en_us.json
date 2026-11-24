@@ -14,11 +14,11 @@
   "carpet.rule.botnoclip.extra.0": "false - vanilla (bots and players push each other)",
   "carpet.rule.botnoclip.extra.1": "true - nothing can push bots (bots can still push players)",
   "carpet.rule.botToolSwap.name": "Bots auto-equip better tools",
-  "carpet.rule.botToolSwap.desc": "When a Carpet fake player picks up a tool, it switches it into the main hand if it is better: Mending wins first; otherwise the higher total enchantment level wins, with each curse level counted as -10.",
+  "carpet.rule.botToolSwap.desc": "When a Carpet fake player picks up a tool, it switches it into the main hand if it is better: only the same kind of tool is compared; Mending wins first; otherwise the higher total enchantment level wins, with each curse level counted as -10. It also replaces a held tool whose remaining durability is down to 10% (at least 1 point) with the same tool that has the most durability in its inventory.",
   "carpet.rule.botToolSwap.extra.0": "false - vanilla (bots keep whatever is in the main hand)",
-  "carpet.rule.botToolSwap.extra.1": "true - bots auto-switch to a better picked-up tool",
+  "carpet.rule.botToolSwap.extra.1": "true - bots auto-switch to a better picked-up tool and replace nearly broken tools",
   "carpet.rule.noBatSpawning.name": "No bat spawning",
-  "carpet.rule.noBatSpawning.desc": "Disables natural bat spawning. Spawn eggs, spawners and commands still work; mobs already in the world are unaffected. For phantoms use the vanilla /gamerule spawn_phantoms false.",
+  "carpet.rule.noBatSpawning.desc": "Disables natural bat spawning by setting the ambient spawn rate to 0 (the same table /spawn rates writes to). Spawn eggs, spawners and commands still work; mobs already in the world are unaffected. For phantoms use the vanilla /gamerule spawn_phantoms false.",
   "carpet.rule.noBatSpawning.extra.0": "false - vanilla (bats spawn in dark places)",
   "carpet.rule.noBatSpawning.extra.1": "true - no natural bat spawning",
   "carpet.rule.botmemo.name": "Bot memo (save/restore bot state)",
@@ -32,5 +32,9 @@
   "carpet.rule.deathchest.name": "Death chest",
   "carpet.rule.deathchest.desc": "When a player dies, their items are stored in one or two chests (27 stacks each) at the death spot instead of being scattered. No protection, no owner label, no experience storage.",
   "carpet.rule.deathchest.extra.0": "false - vanilla (items drop on the ground)",
-  "carpet.rule.deathchest.extra.1": "true - items go into chests at the death spot"
+  "carpet.rule.deathchest.extra.1": "true - items go into chests at the death spot",
+  "carpet.rule.noAquaticSpawning.name": "No aquatic mob spawning",
+  "carpet.rule.noAquaticSpawning.desc": "Disables natural spawning for water creatures (fish, dolphins), water ambient (squid), underground water creatures and axolotls by setting their Carpet spawn rate to 0. Existing mobs, spawn eggs, spawners and commands are unaffected.",
+  "carpet.rule.noAquaticSpawning.extra.0": "false - vanilla (aquatic mobs spawn naturally)",
+  "carpet.rule.noAquaticSpawning.extra.1": "true - no natural aquatic spawning"
 }

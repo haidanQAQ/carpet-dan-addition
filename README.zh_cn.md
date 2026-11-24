@@ -29,8 +29,9 @@
 | [`fishingTreasureNoOpenWater`](#fishingtreasurenoopenwater) | `false` | 还原 1.16 前钓鱼：不需要 5×4×5 开放水域 |
 | [`hoebedrockbreaking`](#hoebedrockbreaking) | `false` | 锄头可以破坏基岩，无掉落，每块 1 耐久 |
 | [`botnoclip`](#botnoclip) | `false` | 任何实体都推不动假人 |
-| [`botToolSwap`](#bottoolswap) | `false` | 假人捡到更好的工具自动换上 |
+| [`botToolSwap`](#bottoolswap) | `false` | 假人捡到更好的工具自动换上，快坏时换同类新工具 |
 | [`noBatSpawning`](#nobatspawning) | `false` | 不再自然生成蝙蝠 |
+| [`noAquaticSpawning`](#noaquaticspawning) | `false` | 不再自然生成鱼、鱿鱼和美西螈 |
 | [`botmemo`](#botmemo) | `true` | 保存/恢复假人的位置、朝向和动作 |
 | [`botChineseName`](#botchinesename) | `true` | `/player` 接受带引号的中文名 |
 | [`deathchest`](#deathchest) | `false` | 死亡后物品放进死亡点的箱子 |
@@ -83,25 +84,28 @@
 
 ### `botToolSwap`
 
-假人捡起工具时，如果捡到的比主手上的更好，就自动换到主手。
+假人捡起工具时，如果捡到的比主手上的更好，就自动换到主手；主手工具快坏时，也会换成背包里同种工具中耐久最高的一件。
 
 | 值 | 行为 |
 | --- | --- |
 | `false`（默认） | 原版：假人保持主手物品 |
-| `true` | 捡到更好的工具自动换上 |
+| `true` | 捡到更好的工具自动换上，快坏时换同类新工具 |
 
 判断顺序：
 
 1. **经验修补**：两件里只有一件有时，直接换上带经验修补的那件，不再比第 2 步。
 2. **附魔总等级**：两件都没有、或都有经验修补时，比较附魔等级之和，诅咒类每级记 **-10**。
+3. **材料等级**：总分相同（通常是两件都没附魔）时，比最大耐久，木 < 石 < 铁 < 钻石 < 下界合金。
 
 细节：
 
 - 只对“工具”生效：有耐久、且不是盔甲/鞘翅这类装备的物品。
+- 只在同类工具之间比较：镐对镐、斧对斧，锹、锄、剑、剪刀同理；弓不会把钓竿换掉。
 - 只处理 Carpet 假人，不影响真实玩家。
 - 主手为空时不判断：工具照常留在背包里，不会自动上手。
 - 不会无视拾取延迟把地上的物品吸过来：掉落物要等原版拾取延迟结束、真正进入背包后才会触发判断。
 - 旧工具会放回假人背包；背包满了才掉在脚边。
+- 主手工具剩余耐久只剩 10% 或更少（至少 1 点）时，会换成背包里同种工具中耐久最高的一件；新工具必须比旧的至少多 10% 耐久才换。工具刚好坏掉时，会立刻装备背包里最好的一件。
 
 ### `noBatSpawning`
 
@@ -114,9 +118,25 @@
 
 细节：
 
-- 只关掉蝙蝠的原版生成检查。
+- 开启时把 ambient 刷怪速率设为 0（关掉再开会再写一次）。原版 ambient 类别只有蝙蝠；开启期间手动 `/spawn rates ambient ...` 不会被覆盖。
 - 刷怪蛋、刷怪笼和 `/summon` 仍然可用，已经存在的蝙蝠不受影响。
 - 幻翼不在这条规则范围内，请用原版游戏规则：`/gamerule spawn_phantoms false`。
+
+### `noAquaticSpawning`
+
+调用 Carpet 自己的刷怪速率表（和 `/spawn rates` 写的是同一张表），把水生生物的刷怪尝试设为 0。
+
+| 值 | 行为 |
+| --- | --- |
+| `false`（默认） | 原版行为：水生生物自然生成 |
+| `true` | 不再自然生成 water_creature、water_ambient、underground_water_creature 和 axolotls |
+
+细节：
+
+- 类别：`water_creature`（鱼、海豚）、`water_ambient`（鱿鱼、发光鱿鱼）、`underground_water_creature`、`axolotls`。
+- 规则开启时只写一次（关掉再打开会再写一次）；开启期间手动 `/spawn rates ...` 不会被覆盖，和平时一样用。关闭规则时还原开启前记录的值。
+- 只影响自然生成：已有的生物、刷怪蛋、刷怪笼、鱼桶和 `/summon` 都不受影响。
+- 海豚和鱼同属 `water_creature`，所以也会一起关闭。
 
 ### `botmemo`
 
@@ -132,7 +152,7 @@
 - `/botmemo <名字> save` 记住假人在哪、朝哪、正在做什么（`use`、`attack`、`move` 等）；再次 save 会覆盖旧记录。
 - `/botmemo <名字> run` 把假人传送回去并恢复保存的动作。
 - 假人不在线时，`run` 会直接在记录的位置生成它（同维度、同朝向、同游戏模式），再恢复动作。
-- 记录只在内存里，重启服务器后丢失；不保存背包、坐骑、血量和药水效果。
+- 记录写在 `config/carpet-dan-addition/botmemo.json`，重启服务器后仍然保留；不保存背包、坐骑、血量和药水效果。
 - 中文名要加引号，例如 `/botmemo "测试" save`。
 
 ### `botChineseName`
@@ -222,6 +242,7 @@ Carpet 的 `/player` 原本只接受 ASCII 名字。`botChineseName` 规则开�
 /carpet botnoclip true
 /carpet botToolSwap true
 /carpet noBatSpawning true
+/carpet noAquaticSpawning true
 /carpet botmemo true
 /carpet botChineseName true
 /player "测试" spawn

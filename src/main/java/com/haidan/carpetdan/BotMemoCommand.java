@@ -77,8 +77,7 @@ public final class BotMemoCommand {
             return 0;
         }
 
-        EntityPlayerActionPack snapshot = new EntityPlayerActionPack(player);
-        snapshot.copyFrom(((ServerPlayerInterface) player).getActionPack());
+        BotMemo.ActionData snapshot = BotMemo.ActionData.capture(((ServerPlayerInterface) player).getActionPack());
 
         BotMemo memo = new BotMemo(
                 player.level().dimension(),
@@ -88,6 +87,7 @@ public final class BotMemoCommand {
                 snapshot
         );
         MEMOS.put(name, memo);
+        savePersisted();
 
         context.getSource().sendSuccess(() -> Component.literal(String.format(
                 "Saved %s at %.2f, %.2f, %.2f in %s (yaw %.1f, pitch %.1f)",
@@ -174,7 +174,18 @@ public final class BotMemoCommand {
             player.setDeltaMovement(Vec3.ZERO);
         }
         EntityPlayerActionPack actions = ((ServerPlayerInterface) player).getActionPack();
-        actions.stopAll();
-        actions.copyFrom(memo.snapshot());
+        memo.actions().apply(actions);
+    }
+
+    /** Loads memos that were saved by a previous server run. */
+    public static void loadPersisted() {
+        Map<String, BotMemo> loaded = BotMemoStore.load();
+        MEMOS.putAll(loaded);
+        CarpetDanAddition.LOGGER.info("botmemo: loaded {} memo(s) from disk", loaded.size());
+    }
+
+    /** Writes the current memos to disk; called after every save and on server shutdown. */
+    public static void savePersisted() {
+        BotMemoStore.save(MEMOS);
     }
 }

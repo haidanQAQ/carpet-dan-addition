@@ -3,7 +3,6 @@
   "package": "com.haidan.carpetdan.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
-    "BatMixin",
     "BlockMixin",
     "CategoryOrderMixin",
     "DeathChestMixin",
@@ -17,7 +16,8 @@
     "PlayerCommandMixin",
     "PlayerChineseNameGateMixin",
     "PlayerListTickMixin",
-    "SuggestionQuotingMixin"
+    "SuggestionQuotingMixin",
+    "ToolDurabilitySwapMixin"
   ],
   "client": [
     "ClientSuggestionQuotingMixin"

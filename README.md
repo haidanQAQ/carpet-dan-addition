@@ -29,8 +29,9 @@ Every rule lives in the `dan` category. Run `/carpet list dan` in game to see th
 | [`fishingTreasureNoOpenWater`](#fishingtreasurenoopenwater) | `false` | Pre-1.16 fishing: no 5×4×5 open-water requirement |
 | [`hoebedrockbreaking`](#hoebedrockbreaking) | `false` | Hoes can break bedrock; no drops, 1 durability each |
 | [`botnoclip`](#botnoclip) | `false` | Nothing can push Carpet fake players |
-| [`botToolSwap`](#bottoolswap) | `false` | Bots auto-equip a better tool they pick up |
+| [`botToolSwap`](#bottoolswap) | `false` | Bots auto-equip better tools and replace nearly broken ones |
 | [`noBatSpawning`](#nobatspawning) | `false` | Bats stop spawning naturally |
+| [`noAquaticSpawning`](#noaquaticspawning) | `false` | Fish, squid and axolotls stop spawning naturally |
 | [`botmemo`](#botmemo) | `true` | `/botmemo` saves and restores a bot's state |
 | [`botChineseName`](#botchinesename) | `true` | `/player` accepts quoted Unicode names |
 | [`deathchest`](#deathchest) | `false` | Items go into chests at the death spot |
@@ -83,25 +84,28 @@ Details:
 
 ### `botToolSwap`
 
-When a bot picks up a tool, it equips it if it is better than the current main-hand tool.
+When a bot picks up a tool, it equips it if it is better than the current main-hand tool. It also replaces a nearly broken held tool with the same tool that has the most durability in its inventory.
 
 | Value | Behaviour |
 | --- | --- |
 | `false` (default) | Vanilla: bots keep whatever is in the main hand |
-| `true` | Auto-switch to a better picked-up tool |
+| `true` | Auto-switch to a better picked-up tool, and swap nearly broken tools |
 
 Order of comparison:
 
 1. **Mending**: if exactly one of the two has Mending, switch to that one and stop.
 2. **Total enchantment level**: if neither or both have Mending, switch to the one with the higher sum of enchantment levels, where every curse level counts as **-10**.
+3. **Material tier**: if the totals are equal (often both plain), switch to the one with the higher max durability — wood < stone < iron < diamond < netherite.
 
 Details:
 
 - Only tools are considered: items with durability that are not equipment such as armour or elytra.
+- Only tools of the same kind are compared: pickaxes with pickaxes, axes with axes, and likewise shovels, hoes, swords and shears. A bow will never replace a fishing rod.
 - Only Carpet fake players are handled; real players are untouched.
 - An empty main hand is left alone: the picked-up tool simply stays in the inventory.
 - Items are never vacuumed off the ground: vanilla pickup delay runs first, and the comparison only happens after the item has really entered the inventory.
 - The old tool goes back into the bot's inventory; it is dropped only when the inventory is full.
+- When the held tool's remaining durability drops to 10% or less (at least 1 point), it is swapped for the same tool with the most durability in the inventory; the replacement must have at least 10% more durability than the current one. If the tool breaks, the best replacement is equipped immediately.
 
 ### `noBatSpawning`
 
@@ -114,9 +118,25 @@ Stops bats from spawning naturally.
 
 Details:
 
-- Only the vanilla bat spawn check is disabled.
+- Sets the ambient spawn rate to 0 once when enabled (and again after off→on). The ambient category currently contains only bats; a manual `/spawn rates ambient ...` while the rule is on is left alone.
 - Spawn eggs, spawners and `/summon` still work, and bats already in the world are untouched.
 - Phantoms are not covered by this rule; use the vanilla gamerule instead: `/gamerule spawn_phantoms false`.
+
+### `noAquaticSpawning`
+
+Stops aquatic mobs from spawning naturally by setting their Carpet spawn rate to 0 — the same table `/spawn rates` writes to.
+
+| Value | Behaviour |
+| --- | --- |
+| `false` (default) | Vanilla: aquatic mobs spawn naturally |
+| `true` | No natural spawning for water creatures, water ambient, underground water creatures and axolotls |
+
+Details:
+
+- Categories: `water_creature` (fish, dolphins), `water_ambient` (squid, glow squid), `underground_water_creature` and `axolotls`.
+- The rates are written once when the rule is enabled (and again after you switch it off and on). A manual `/spawn rates ...` while the rule is on is left alone — it will just work like it normally does. Turning the rule off restores the values captured when it was enabled.
+- Only natural spawning is affected: existing mobs, spawn eggs, spawners, buckets and `/summon` still work.
+- Dolphins share the `water_creature` category with fish, so they are disabled too.
 
 ### `botmemo`
 
@@ -132,7 +152,7 @@ Details:
 - `/botmemo <name> save` remembers where the bot is, which way it faces and what it is doing (`use`, `attack`, `move`, ...). Saving again overwrites the old memo.
 - `/botmemo <name> run` teleports the bot back and restores the saved actions.
 - If the bot is offline, `run` spawns it at the saved position (same dimension, rotation and game mode) and then restores the actions.
-- Memos live in memory only and are lost on restart. Inventory, mount, health and potion effects are not saved.
+- Memos are written to `config/carpet-dan-addition/botmemo.json` and survive a server restart. Inventory, mount, health and potion effects are not saved.
 - Unicode names must be quoted, e.g. `/botmemo "测试" save`.
 
 ### `botChineseName`
@@ -222,6 +242,7 @@ Server-side installation is enough; in single-player just drop it into `mods/`. 
 /carpet botnoclip true
 /carpet botToolSwap true
 /carpet noBatSpawning true
+/carpet noAquaticSpawning true
 /carpet botmemo true
 /carpet botChineseName true
 /player "测试" spawn

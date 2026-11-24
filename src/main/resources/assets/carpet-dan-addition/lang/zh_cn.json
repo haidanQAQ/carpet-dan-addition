@@ -14,11 +14,11 @@
   "carpet.rule.botnoclip.extra.0": "false - 原版行为（假人和玩家会互相挤）",
   "carpet.rule.botnoclip.extra.1": "true - 任何实体都推不动假人（假人仍能推动玩家）",
   "carpet.rule.botToolSwap.name": "假人自动换更好的工具",
-  "carpet.rule.botToolSwap.desc": "假人捡起工具时，如果比主手上的更好就自动换上：先看经验修补（只有一件有时优先它），否则比较附魔总等级，诅咒每级记 -10。",
+  "carpet.rule.botToolSwap.desc": "假人捡起工具时，如果比主手上的更好就自动换上（只在同类工具之间比较）：先看经验修补（只有一件有时优先它），否则比较附魔总等级，诅咒每级记 -10。另外，主手工具剩余耐久只剩 10%（至少 1 点）时，会自动换成背包里同种工具中耐久最高的一件。",
   "carpet.rule.botToolSwap.extra.0": "false - 原版行为（假人保持主手物品）",
-  "carpet.rule.botToolSwap.extra.1": "true - 假人捡到更好的工具时自动换上",
+  "carpet.rule.botToolSwap.extra.1": "true - 假人捡到更好的工具时自动换上，快坏时换同类新工具",
   "carpet.rule.noBatSpawning.name": "不生成蝙蝠",
-  "carpet.rule.noBatSpawning.desc": "禁止蝙蝠自然生成；刷怪蛋、刷怪笼和命令仍然可用，已存在的生物不受影响。幻翼请用原版 /gamerule spawn_phantoms false。",
+  "carpet.rule.noBatSpawning.desc": "通过把 ambient 刷怪速率设为 0 来禁止蝙蝠自然生成（和 /spawn rates 同一张表）；刷怪蛋、刷怪笼和命令仍然可用，已存在的生物不受影响。幻翼请用原版 /gamerule spawn_phantoms false。",
   "carpet.rule.noBatSpawning.extra.0": "false - 原版行为（蝙蝠在黑暗处生成）",
   "carpet.rule.noBatSpawning.extra.1": "true - 不再自然生成蝙蝠",
   "carpet.rule.botmemo.name": "假人状态记忆",
@@ -32,5 +32,9 @@
   "carpet.rule.deathchest.name": "死亡箱子",
   "carpet.rule.deathchest.desc": "玩家死亡后，物品会装进死亡点的 1-2 个箱子（每箱 27 组），而不是散落一地。不做保护、不标记主人、不存经验。",
   "carpet.rule.deathchest.extra.0": "false - 原版行为（物品掉在地上）",
-  "carpet.rule.deathchest.extra.1": "true - 物品装进死亡点的箱子"
+  "carpet.rule.deathchest.extra.1": "true - 物品装进死亡点的箱子",
+  "carpet.rule.noAquaticSpawning.name": "关闭水生生物生成",
+  "carpet.rule.noAquaticSpawning.desc": "把 water_creature（鱼、海豚）、water_ambient（鱿鱼）、underground_water_creature 和 axolotls 的 Carpet 刷怪尝试设为 0，关闭自然生成；已有的生物、刷怪蛋、刷怪笼和命令不受影响。",
+  "carpet.rule.noAquaticSpawning.extra.0": "false - 原版行为（水生生物自然生成）",
+  "carpet.rule.noAquaticSpawning.extra.1": "true - 不再自然生成水生生物"
 }
