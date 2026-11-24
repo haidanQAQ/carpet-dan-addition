@@ -41,12 +41,13 @@ public final class CarpetDanSettings {
     public static boolean botToolSwap = false;
 
     /**
-     * false - vanilla: phantoms and bats spawn naturally.
-     * true  - natural spawning of phantoms and bats is disabled; spawn eggs and
-     *         commands still work.
+     * false - vanilla: bats spawn naturally in dark places.
+     * true  - natural bat spawning is disabled; spawn eggs, spawners and
+     *         commands still work. Phantoms are covered by the vanilla
+     *         /gamerule spawn_phantoms.
      */
     @Rule(categories = {"dan"})
-    public static boolean noPhantomBatSpawning = false;
+    public static boolean noBatSpawning = false;
 
     /**
      * true  - /botmemo is available: save the position, rotation and actions of a bot,
@@ -95,8 +96,8 @@ public final class CarpetDanSettings {
         return botToolSwap;
     }
 
-    public static boolean noPhantomBatSpawningEnabled() {
-        return noPhantomBatSpawning;
+    public static boolean noBatSpawningEnabled() {
+        return noBatSpawning;
     }
 
     public static boolean botMemoEnabled() {

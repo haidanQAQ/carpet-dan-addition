@@ -30,7 +30,7 @@
 | [`hoebedrockbreaking`](#hoebedrockbreaking) | `false` | 锄头可以破坏基岩，无掉落，每块 1 耐久 |
 | [`botnoclip`](#botnoclip) | `false` | 任何实体都推不动假人 |
 | [`botToolSwap`](#bottoolswap) | `false` | 假人捡到更好的工具自动换上 |
-| [`noPhantomBatSpawning`](#nophantombatspawning) | `false` | 不再自然生成幻翼与蝙蝠 |
+| [`noBatSpawning`](#nobatspawning) | `false` | 不再自然生成蝙蝠 |
 | [`botmemo`](#botmemo) | `true` | 保存/恢复假人的位置、朝向和动作 |
 | [`botChineseName`](#botchinesename) | `true` | `/player` 接受带引号的中文名 |
 | [`deathchest`](#deathchest) | `false` | 死亡后物品放进死亡点的箱子 |
@@ -103,20 +103,20 @@
 - 不会无视拾取延迟把地上的物品吸过来：掉落物要等原版拾取延迟结束、真正进入背包后才会触发判断。
 - 旧工具会放回假人背包；背包满了才掉在脚边。
 
-### `noPhantomBatSpawning`
+### `noBatSpawning`
 
-禁止幻翼与蝙蝠自然生成。
+禁止蝙蝠自然生成。
 
 | 值 | 行为 |
 | --- | --- |
-| `false`（默认） | 原版行为：失眠后夜晚生成幻翼，黑暗洞穴生成蝙蝠 |
-| `true` | 不再自然生成幻翼和蝙蝠 |
+| `false`（默认） | 原版行为：蝙蝠在黑暗处生成 |
+| `true` | 不再自然生成蝙蝠 |
 
 细节：
 
-- 同时关掉两条原版生成路径：幻翼生成器（玩家连续几天不睡觉后才会尝试生成）和蝙蝠的生成检查。
-- 刷怪蛋和 `/summon` 仍然可用，已经存在的生物不受影响。
-- 刷怪笼生成的蝙蝠不受影响；只拦自然生成。
+- 只关掉蝙蝠的原版生成检查。
+- 刷怪蛋、刷怪笼和 `/summon` 仍然可用，已经存在的蝙蝠不受影响。
+- 幻翼不在这条规则范围内，请用原版游戏规则：`/gamerule spawn_phantoms false`。
 
 ### `botmemo`
 
@@ -221,7 +221,7 @@ Carpet 的 `/player` 原本只接受 ASCII 名字。`botChineseName` 规则开�
 /carpet hoebedrockbreaking true
 /carpet botnoclip true
 /carpet botToolSwap true
-/carpet noPhantomBatSpawning true
+/carpet noBatSpawning true
 /carpet botmemo true
 /carpet botChineseName true
 /player "测试" spawn

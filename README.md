@@ -30,7 +30,7 @@ Every rule lives in the `dan` category. Run `/carpet list dan` in game to see th
 | [`hoebedrockbreaking`](#hoebedrockbreaking) | `false` | Hoes can break bedrock; no drops, 1 durability each |
 | [`botnoclip`](#botnoclip) | `false` | Nothing can push Carpet fake players |
 | [`botToolSwap`](#bottoolswap) | `false` | Bots auto-equip a better tool they pick up |
-| [`noPhantomBatSpawning`](#nophantombatspawning) | `false` | Phantoms and bats stop spawning naturally |
+| [`noBatSpawning`](#nobatspawning) | `false` | Bats stop spawning naturally |
 | [`botmemo`](#botmemo) | `true` | `/botmemo` saves and restores a bot's state |
 | [`botChineseName`](#botchinesename) | `true` | `/player` accepts quoted Unicode names |
 | [`deathchest`](#deathchest) | `false` | Items go into chests at the death spot |
@@ -103,20 +103,20 @@ Details:
 - Items are never vacuumed off the ground: vanilla pickup delay runs first, and the comparison only happens after the item has really entered the inventory.
 - The old tool goes back into the bot's inventory; it is dropped only when the inventory is full.
 
-### `noPhantomBatSpawning`
+### `noBatSpawning`
 
-Stops phantoms and bats from spawning naturally.
+Stops bats from spawning naturally.
 
 | Value | Behaviour |
 | --- | --- |
-| `false` (default) | Vanilla: phantoms spawn at night after insomnia, bats in dark caves |
-| `true` | No natural phantom or bat spawning |
+| `false` (default) | Vanilla: bats spawn in dark places |
+| `true` | No natural bat spawning |
 
 Details:
 
-- Two vanilla spawn paths are disabled: the phantom spawner (which only runs after a player has not slept for several days) and the bat spawn check.
-- Spawn eggs and `/summon` still work, and mobs already in the world are untouched.
-- Bats spawned by a mob spawner are unaffected; only natural spawning is blocked.
+- Only the vanilla bat spawn check is disabled.
+- Spawn eggs, spawners and `/summon` still work, and bats already in the world are untouched.
+- Phantoms are not covered by this rule; use the vanilla gamerule instead: `/gamerule spawn_phantoms false`.
 
 ### `botmemo`
 
@@ -221,7 +221,7 @@ Server-side installation is enough; in single-player just drop it into `mods/`. 
 /carpet hoebedrockbreaking true
 /carpet botnoclip true
 /carpet botToolSwap true
-/carpet noPhantomBatSpawning true
+/carpet noBatSpawning true
 /carpet botmemo true
 /carpet botChineseName true
 /player "测试" spawn

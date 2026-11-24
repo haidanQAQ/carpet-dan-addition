@@ -22,7 +22,7 @@ public class BatMixin {
     private static void dan$cancelBatSpawning(EntityType<Bat> type, LevelAccessor level,
                                               EntitySpawnReason reason, BlockPos pos,
                                               RandomSource random, CallbackInfoReturnable<Boolean> cir) {
-        if (CarpetDanSettings.noPhantomBatSpawningEnabled()) {
+        if (CarpetDanSettings.noBatSpawningEnabled()) {
             cir.setReturnValue(false);
         }
     }

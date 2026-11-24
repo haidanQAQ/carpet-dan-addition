@@ -14,7 +14,6 @@
     "ItemStackMixin",
     "ItemEntityToolSwapMixin",
     "LivingEntityBotMixin",
-    "PhantomSpawnerMixin",
     "PlayerCommandMixin",
     "PlayerChineseNameGateMixin",
     "PlayerListTickMixin",
