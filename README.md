@@ -97,7 +97,7 @@ Order of comparison:
 
 1. **Mending**: if exactly one of the two has Mending, switch to that one and stop.
 2. **Total enchantment level**: if neither or both have Mending, switch to the one with the higher sum of enchantment levels, where every curse level counts as **-10**.
-3. **Material tier**: if the totals are equal (often both plain), switch to the one with the higher max durability �?wood < stone < iron < diamond < netherite.
+3. **Material tier**: if the totals are equal (often both plain), switch to the one with the higher max durability — wood < stone < iron < diamond < netherite.
 
 Details:
 
@@ -126,7 +126,7 @@ Details:
 
 ### `noAquaticSpawning`
 
-Stops aquatic mobs from spawning naturally by setting their Carpet spawn rate to 0 �?the same table `/spawn rates` writes to.
+Stops aquatic mobs from spawning naturally by setting their Carpet spawn rate to 0 — the same table `/spawn rates` writes to.
 
 | Value | Behaviour |
 | --- | --- |
@@ -136,7 +136,7 @@ Stops aquatic mobs from spawning naturally by setting their Carpet spawn rate to
 Details:
 
 - Categories: `water_creature` (fish, dolphins), `water_ambient` (squid, glow squid), `underground_water_creature` and `axolotls`.
-- The rates are written once when the rule is enabled (and again after you switch it off and on). A manual `/spawn rates ...` while the rule is on is left alone �?it will just work like it normally does. Turning the rule off restores the values captured when it was enabled.
+- The rates are written once when the rule is enabled (and again after you switch it off and on). A manual `/spawn rates ...` while the rule is on is left alone — it will just work like it normally does. Turning the rule off restores the values captured when it was enabled.
 - Only natural spawning is affected: existing mobs, spawn eggs, spawners, buckets and `/summon` still work.
 - Dolphins share the `water_creature` category with fish, so they are disabled too.
 
@@ -183,7 +183,7 @@ Puts a dead player's items into chests at the death spot instead of scattering t
 
 Details:
 
-- Up to 27 stacks go into one chest; 28�?4 stacks go into two chests stacked vertically.
+- Up to 27 stacks go into one chest; 28–54 stacks go into two chests stacked vertically.
 - Items with Curse of Vanishing are destroyed as usual. XP is not stored. Chests are not protected and are not marked as owned.
 - Free spots are searched upwards first, then downwards; only air counts as free (water and lava do not).
 - If the player dies outside the world height, the search starts from the nearest height limit (top-down above the world, bottom-up below it).
@@ -280,6 +280,7 @@ Server-side installation is enough; in single-player just drop it into `mods/`. 
 /carpet botmemo true
 /carpet botChineseName true
 /carpet leashableVillagers true
+/carpet villagerneverstoptrading true
 /player "测试" spawn
 /botmemo "测试" save
 /botmemo "测试" run
@@ -294,7 +295,7 @@ Requires **JDK 25**:
 
 ```bash
 ./gradlew build
-# output: build/libs/carpet-dan-addition-1.5.8+mc26.3.jar
+# output: build/libs/carpet-dan-addition-1.5.9+mc26.3.jar
 ```
 
 ## Compatibility

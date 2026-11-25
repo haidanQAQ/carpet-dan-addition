@@ -44,5 +44,9 @@
   "carpet.rule.noAquaticSpawning.name": "关闭水生生物生成",
   "carpet.rule.noAquaticSpawning.desc": "把 water_creature（鱼、海豚）、water_ambient（鱿鱼）、underground_water_creature 和 axolotls 的 Carpet 刷怪尝试设为 0，关闭自然生成；已有的生物、刷怪蛋、刷怪笼和命令不受影响。",
   "carpet.rule.noAquaticSpawning.extra.0": "false - 原版行为（水生生物自然生成）",
-  "carpet.rule.noAquaticSpawning.extra.1": "true - 不再自然生成水生生物"
+  "carpet.rule.noAquaticSpawning.extra.1": "true - 不再自然生成水生生物",
+  "carpet.rule.crispydeepslate.name": "脆皮深板岩",
+  "carpet.rule.crispydeepslate.desc": "把深板岩方块的硬度从 3.0 降到和石头一样的 1.5，挖掘速度按石头算；深板岩矿石仍保留自己的硬度，掉落物不变。",
+  "carpet.rule.crispydeepslate.extra.0": "false - 原版行为（深板岩硬度 3.0）",
+  "carpet.rule.crispydeepslate.extra.1": "true - 深板岩按石头速度挖（硬度 1.5）"
 }

@@ -44,5 +44,9 @@
   "carpet.rule.noAquaticSpawning.name": "No aquatic mob spawning",
   "carpet.rule.noAquaticSpawning.desc": "Disables natural spawning for water creatures (fish, dolphins), water ambient (squid), underground water creatures and axolotls by setting their Carpet spawn rate to 0. Existing mobs, spawn eggs, spawners and commands are unaffected.",
   "carpet.rule.noAquaticSpawning.extra.0": "false - vanilla (aquatic mobs spawn naturally)",
-  "carpet.rule.noAquaticSpawning.extra.1": "true - no natural aquatic spawning"
+  "carpet.rule.noAquaticSpawning.extra.1": "true - no natural aquatic spawning",
+  "carpet.rule.crispydeepslate.name": "Crispy deepslate",
+  "carpet.rule.crispydeepslate.desc": "Mines the deepslate block as if its hardness were stone's 1.5 instead of 3.0. Deepslate ores keep their own hardness, and the block itself drops the same item as before.",
+  "carpet.rule.crispydeepslate.extra.0": "false - vanilla (deepslate hardness 3.0)",
+  "carpet.rule.crispydeepslate.extra.1": "true - deepslate is mined at stone speed (hardness 1.5)"
 }

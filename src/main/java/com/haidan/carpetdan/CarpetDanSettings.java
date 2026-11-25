@@ -23,6 +23,14 @@ public final class CarpetDanSettings {
     public static boolean hoebedrockbreaking = false;
 
     /**
+     * false - vanilla: deepslate has hardness 3.0, twice as slow to mine as stone.
+     * true  - the deepslate block is mined as if its hardness were stone's 1.5.
+     *         Deepslate ores keep their own hardness.
+     */
+    @Rule(categories = {"dan"})
+    public static boolean crispydeepslate = false;
+
+    /**
      * false - vanilla: bots and players push each other.
      * true  - Carpet fake players (bots) and players no longer push each other,
      *         so a bot stays where it was placed when a player walks into it.
@@ -114,6 +122,10 @@ public final class CarpetDanSettings {
 
     public static boolean hoeBedrockBreaking() {
         return hoebedrockbreaking;
+    }
+
+    public static boolean crispyDeepslate() {
+        return crispydeepslate;
     }
 
     public static boolean botNoClip() {

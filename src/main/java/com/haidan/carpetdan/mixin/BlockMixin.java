@@ -36,4 +36,19 @@ public abstract class BlockMixin {
         float speed = player.getDestroySpeed(Blocks.HAY_BLOCK.defaultBlockState());
         cir.setReturnValue(speed / 1.5F / 30.0F);
     }
+
+    /**
+     * Mines deepslate as if its hardness were stone's 1.5 instead of 3.0 when
+     * {@code crispydeepslate} is on. Only the deepslate block itself is affected;
+     * deepslate ores keep their own hardness.
+     */
+    @Inject(method = "getDestroyProgress", at = @At("HEAD"), cancellable = true)
+    private void carpetdan$crispyDeepslate(BlockState state, Player player, BlockGetter level, BlockPos pos,
+                                           CallbackInfoReturnable<Float> cir) {
+        if (!CarpetDanSettings.crispyDeepslate() || !state.is(Blocks.DEEPSLATE)) {
+            return;
+        }
+        float divisor = player.hasCorrectToolForDrops(state) ? 30.0F : 100.0F;
+        cir.setReturnValue(player.getDestroySpeed(state) / 1.5F / divisor);
+    }
 }
