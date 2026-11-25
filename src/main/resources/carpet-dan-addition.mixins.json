@@ -14,6 +14,7 @@
     "ItemStackMixin",
     "ItemEntityToolSwapMixin",
     "LivingEntityBotMixin",
+    "MerchantOfferMixin",
     "PlayerCommandMixin",
     "PlayerChineseNameGateMixin",
     "PlayerListTickMixin",

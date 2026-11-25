@@ -96,6 +96,14 @@ public final class CarpetDanSettings {
     @Rule(categories = {"dan"})
     public static boolean leashableVillagers = false;
 
+    /**
+     * false - vanilla: a trade locks after its max uses.
+     * true  - villagers and wandering traders never run out of trades: the used count is
+     *         frozen, so every offer stays available forever and demand never grows.
+     */
+    @Rule(categories = {"dan"})
+    public static boolean villagerneverstoptrading = false;
+
     public static boolean ignoreOpenWater() {
         return !"false".equalsIgnoreCase(fishingTreasureNoOpenWater);
     }
@@ -138,5 +146,9 @@ public final class CarpetDanSettings {
 
     public static boolean leashableVillagersEnabled() {
         return leashableVillagers;
+    }
+
+    public static boolean villagerNeverStopTrading() {
+        return villagerneverstoptrading;
     }
 }
