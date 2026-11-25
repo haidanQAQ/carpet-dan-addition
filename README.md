@@ -35,6 +35,7 @@ Every rule lives in the `dan` category. Run `/carpet list dan` in game to see th
 | [`botmemo`](#botmemo) | `true` | `/botmemo` saves and restores a bot's state |
 | [`botChineseName`](#botchinesename) | `true` | `/player` accepts quoted Unicode names |
 | [`deathchest`](#deathchest) | `false` | Items go into chests at the death spot |
+| [`leashableVillagers`](#leashablevillagers) | `false` | Villagers and wandering traders can be leashed |
 
 ### `fishingTreasureNoOpenWater`
 
@@ -188,6 +189,22 @@ Details:
 - If no free spot exists, blocks are overwritten in place to make room; block entities are never overwritten and the search keeps going up.
 - Chests are ordinary chests, so hoppers, double chests and `/data` work normally.
 
+### `leashableVillagers`
+
+Lets you attach a lead to villagers and wandering traders and pull them around.
+
+| Value | Behaviour |
+| --- | --- |
+| `false` (default) | Vanilla: villagers cannot be leashed |
+| `true` | Villagers and wandering traders can be leashed and pulled |
+
+Details:
+
+- The only change is the attachment check: leashing physics, distance limits, lead breaking and fence knots behave like any other leashable mob.
+- Works for both villagers and wandering traders (both extend `AbstractVillager`).
+- Use shears to cut the lead, as with other leashed mobs.
+- Villagers still pathfind normally; the lead pulls them when you walk away.
+
 ## Commands
 
 ### Unicode bot names
@@ -245,6 +262,7 @@ Server-side installation is enough; in single-player just drop it into `mods/`. 
 /carpet noAquaticSpawning true
 /carpet botmemo true
 /carpet botChineseName true
+/carpet leashableVillagers true
 /player "测试" spawn
 /botmemo "测试" save
 /botmemo "测试" run
@@ -259,7 +277,7 @@ Requires **JDK 25**:
 
 ```bash
 ./gradlew build
-# output: build/libs/carpet-dan-addition-1.5.1+mc26.3.jar
+# output: build/libs/carpet-dan-addition-1.5.7+mc26.3.jar
 ```
 
 ## Compatibility

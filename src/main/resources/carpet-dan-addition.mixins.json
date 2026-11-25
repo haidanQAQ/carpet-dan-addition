@@ -3,6 +3,7 @@
   "package": "com.haidan.carpetdan.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
+    "AbstractVillagerMixin",
     "BlockMixin",
     "CategoryOrderMixin",
     "DeathChestMixin",

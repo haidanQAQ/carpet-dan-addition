@@ -88,6 +88,14 @@ public final class CarpetDanSettings {
     @Rule(categories = {"dan"})
     public static boolean deathchest = false;
 
+    /**
+     * false - vanilla: villagers and wandering traders cannot be leashed.
+     * true  - a lead can be attached to villagers and wandering traders, and they
+     *         can be pulled around like other leashable mobs.
+     */
+    @Rule(categories = {"dan"})
+    public static boolean leashableVillagers = false;
+
     public static boolean ignoreOpenWater() {
         return !"false".equalsIgnoreCase(fishingTreasureNoOpenWater);
     }
@@ -126,5 +134,9 @@ public final class CarpetDanSettings {
 
     public static boolean deathChestEnabled() {
         return deathchest;
+    }
+
+    public static boolean leashableVillagersEnabled() {
+        return leashableVillagers;
     }
 }

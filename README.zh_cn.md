@@ -35,6 +35,7 @@
 | [`botmemo`](#botmemo) | `true` | 保存/恢复假人的位置、朝向和动作 |
 | [`botChineseName`](#botchinesename) | `true` | `/player` 接受带引号的中文名 |
 | [`deathchest`](#deathchest) | `false` | 死亡后物品放进死亡点的箱子 |
+| [`leashableVillagers`](#leashablevillagers) | `false` | 村民和流浪商人可以被拴绳拴住 |
 
 ### `fishingTreasureNoOpenWater`
 
@@ -188,6 +189,22 @@
 - 找不到空位就覆盖原地方块；遇到方块实体不覆盖，继续向上找。
 - 箱子是普通箱子，漏斗、大箱子、`/data` 都能正常用。
 
+### `leashableVillagers`
+
+让村民和流浪商人可以被拴绳拴住并拉着走。
+
+| 值 | 行为 |
+| --- | --- |
+| `false`（默认） | 原版：村民不能被拴绳拴住 |
+| `true` | 村民和流浪商人可以被拴住并拉动 |
+
+细节：
+
+- 只改“能否拴”这一处判断；拴绳的物理、距离限制、断裂、拴栅栏等行为与其他可拴生物一致。
+- 村民和流浪商人（都继承 `AbstractVillager`）都生效。
+- 需要用剪刀剪断拴绳时，和原版其他被拴生物一样操作。
+- 村民仍会正常寻路，走远时会被绳子拉回来。
+
 ## 命令
 
 ### 中文名假人
@@ -245,6 +262,7 @@ Carpet 的 `/player` 原本只接受 ASCII 名字。`botChineseName` 规则开�
 /carpet noAquaticSpawning true
 /carpet botmemo true
 /carpet botChineseName true
+/carpet leashableVillagers true
 /player "测试" spawn
 /botmemo "测试" save
 /botmemo "测试" run
@@ -259,7 +277,7 @@ Carpet 的 `/player` 原本只接受 ASCII 名字。`botChineseName` 规则开�
 
 ```bash
 ./gradlew build
-# 产物：build/libs/carpet-dan-addition-1.5.1+mc26.3.jar
+# 产物：build/libs/carpet-dan-addition-1.5.7+mc26.3.jar
 ```
 
 ## 兼容性
