@@ -39,6 +39,7 @@
 | [`villagerneverstoptrading`](#villagerneverstoptrading) | `false` | 交易永不锁定；已用次数冻结，价格不再上涨 |
 | [`crispydeepslate`](#crispydeepslate) | `false` | 深板岩按硬度 1.5 挖 |
 | [`TNTdrag`](#tntdrag) | `float` | 点燃 TNT 的空气阻尼：`float`（26.2+）或 `doublefloat`（26.2 前） |
+| [`TNTchunkloading`](#tntchunkloading) | `false` | 高速点燃 TNT 持续强加载所在区块（80gt 珍珠级加载票） |
 
 ### `fishingTreasureNoOpenWater`
 
@@ -253,6 +254,22 @@
 - mixin 只替换 `PrimedTnt.tick()` 里那一次 `Vec3.scale(double)` 的参数；重力和水平 `0.7` / `-0.5` 摩擦走 `multiply(DDD)`，不受影响。
 - 差别很小（0.98F ≈ 0.9800000190734863，0.98D = 0.98），但长引信会累积，这正是 26.2 之前的原版行为。
 
+### `TNTchunkloading`
+
+已点燃的 TNT 水平速度超过阈值时，持续强加载它所在的区块。
+
+| 值 | 行为 |
+| --- | --- |
+| `false`（默认） | 关闭，不执行任何区块加载逻辑 |
+| 非负数字 | 水平速度阈值（格/tick），如 `0`、`0.5`、`1.0`、`2.0` |
+
+细节：
+
+- 在 `PrimedTnt.tick()` 之后（服务端、每 tick）检查 `Math.abs(motion.x) > threshold || Math.abs(motion.z) > threshold`。
+- 加载票是自定义 `TicketType`，timeout 80gt，flags 与 `TicketType.ENDER_PEARL` 完全一致，所以加载半径、模拟等级、维度保活都与珍珠相同；发放半径 `2`，与 `ServerPlayer.placeEnderPearlTicket` 相同。
+- `strict = false` + 自定义 `Validator<String>`：接受 `false`（不区分大小写）或任意有限非负 double；`-1`、`NaN`、`Infinity`、乱写会被拒绝。解析结果有缓存，tick 路径不调用 `Double.parseDouble`，只有 Carpet 改规则字符串时才重新解析。
+- 列出的选项（`false`、`0.5`、`1.0`、`2.0`）只是 Tab 补全提示。
+
 ## 命令
 
 ### 中文名假人
@@ -314,6 +331,7 @@ Carpet 的 `/player` 原本只接受 ASCII 名字。`botChineseName` 规则开�
 /carpet villagerneverstoptrading true
 /carpet crispydeepslate true
 /carpet TNTdrag doublefloat
+/carpet TNTchunkloading 1.0
 /player "测试" spawn
 /botmemo "测试" save
 /botmemo "测试" run
@@ -328,7 +346,7 @@ Carpet 的 `/player` 原本只接受 ASCII 名字。`botChineseName` 规则开�
 
 ```bash
 ./gradlew build
-# 产物：build/libs/carpet-dan-addition-1.5.10+mc26.3.jar
+# 产物：build/libs/carpet-dan-addition-1.5.11+mc26.3.jar
 ```
 
 ## 兼容性

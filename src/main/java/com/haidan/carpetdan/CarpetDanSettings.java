@@ -1,9 +1,84 @@
 package com.haidan.carpetdan;
 
+import carpet.api.settings.CarpetRule;
 import carpet.api.settings.Rule;
+import carpet.api.settings.Validator;
+import net.minecraft.commands.CommandSourceStack;
 
 public final class CarpetDanSettings {
     private CarpetDanSettings() {
+    }
+
+    /**
+     * Cached threshold for {@code TNTchunkloading}. -1 means the rule is off. Kept in sync by
+     * {@link TntChunkLoadingValidator} and by {@link #tntChunkLoadingThreshold()}, which only
+     * re-parses when the rule string changes, so the TNT tick path never calls Double.parseDouble.
+     */
+    public static double tntChunkLoadingThreshold = -1.0D;
+    private static String tntChunkLoadingLastSeen = null;
+
+    /**
+     * false  - off: no chunk-loading logic runs.
+     * number - primed TNT whose horizontal speed exceeds this many blocks/tick places an 80 gt
+     *          loading ticket (ender-pearl equivalent) on its current chunk every tick.
+     *
+     * <p>Any non-negative finite double is accepted, e.g. 0, 0.5, 1.25, 10. The listed options are
+     * only for tab completion.</p>
+     */
+    @Rule(
+            categories = {"dan"},
+            options = {"false", "0.5", "1.0", "2.0"},
+            strict = false,
+            validators = TntChunkLoadingValidator.class)
+    public static String TNTchunkloading = "false";
+
+    public static final class TntChunkLoadingValidator extends Validator<String> {
+        @Override
+        public String validate(CommandSourceStack source, CarpetRule<String> currentRule, String newValue, String string) {
+            if ("false".equalsIgnoreCase(newValue)) {
+                tntChunkLoadingThreshold = -1.0D;
+                return "false";
+            }
+            try {
+                double value = Double.parseDouble(newValue);
+                if (Double.isFinite(value) && value >= 0.0D) {
+                    tntChunkLoadingThreshold = value;
+                    return newValue;
+                }
+            } catch (NumberFormatException ignored) {
+            }
+            return null;
+        }
+
+        @Override
+        public String description() {
+            return "Must be 'false' or a non-negative number";
+        }
+    }
+
+    /**
+     * Hot path used by the TNT mixin. A String reference comparison is enough: Carpet only replaces
+     * the field when the rule actually changes, so this parses at most once per change.
+     */
+    public static double tntChunkLoadingThreshold() {
+        String value = TNTchunkloading;
+        if (value != tntChunkLoadingLastSeen) {
+            tntChunkLoadingLastSeen = value;
+            tntChunkLoadingThreshold = parseTntChunkLoadingThreshold(value);
+        }
+        return tntChunkLoadingThreshold;
+    }
+
+    public static double parseTntChunkLoadingThreshold(String value) {
+        if (value == null || "false".equalsIgnoreCase(value)) {
+            return -1.0D;
+        }
+        try {
+            double parsed = Double.parseDouble(value);
+            return Double.isFinite(parsed) && parsed >= 0.0D ? parsed : -1.0D;
+        } catch (NumberFormatException ignored) {
+            return -1.0D;
+        }
     }
 
     /**

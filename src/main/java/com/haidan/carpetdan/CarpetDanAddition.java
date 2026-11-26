@@ -17,6 +17,9 @@ public class CarpetDanAddition implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        // Touch the holder class so the 80 gt TNT chunk-loading ticket is registered with the
+        // game's TICKET_TYPE registry before any world is loaded.
+        java.util.Objects.requireNonNull(com.haidan.carpetdan.ticket.TntChunkLoadingTicket.TNT_CHUNK_LOADING);
         CarpetServer.manageExtension(new CarpetDanAdditionExtension());
         LOGGER.info("[{}] {} loaded, extensions={}", MOD_ID, VERSION, CarpetServer.extensions.size());
     }

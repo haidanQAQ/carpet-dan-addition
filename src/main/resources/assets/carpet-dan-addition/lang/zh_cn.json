@@ -52,5 +52,9 @@
   "carpet.rule.TNTdrag.name": "TNT 空气阻尼精度",
   "carpet.rule.TNTdrag.desc": "控制已点燃 TNT 每 tick 受到的空气阻尼精度。float 保留 26.2+ 原版行为（单精度 0.98F 再扩宽为 double）；doublefloat 恢复 26.2 之前的双精度字面量 0.98D。",
   "carpet.rule.TNTdrag.extra.0": "float - 26.2+ 原版（0.98F 扩宽为 double）",
-  "carpet.rule.TNTdrag.extra.1": "doublefloat - 26.2 之前的双精度（精确的 0.98D）"
+  "carpet.rule.TNTdrag.extra.1": "doublefloat - 26.2 之前的双精度（精确的 0.98D）",
+  "carpet.rule.TNTchunkloading.name": "TNT 区块强加载",
+  "carpet.rule.TNTchunkloading.desc": "已点燃的 TNT 水平速度超过阈值（格/tick）时，会持续为它所在区块发放一张 80gt、与珍珠票同等级的加载票。false 关闭；任意非负数字均可。",
+  "carpet.rule.TNTchunkloading.extra.0": "false - 关闭，不执行区块加载",
+  "carpet.rule.TNTchunkloading.extra.1": "数字 - 水平速度阈值，如 0、0.5、1.0、2.0"
 }

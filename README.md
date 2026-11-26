@@ -39,6 +39,7 @@ Every rule lives in the `dan` category. Run `/carpet list dan` in game to see th
 | [`villagerneverstoptrading`](#villagerneverstoptrading) | `false` | Trades never lock; uses frozen, so prices no longer rise |
 | [`crispydeepslate`](#crispydeepslate) | `false` | Deepslate is mined as if its hardness were 1.5 |
 | [`TNTdrag`](#tntdrag) | `float` | Primed TNT air drag: `float` (26.2+) or `doublefloat` (pre-26.2) |
+| [`TNTchunkloading`](#tntchunkloading) | `false` | Fast primed TNT keeps its chunk force-loaded (80 gt pearl-level ticket) |
 
 ### `fishingTreasureNoOpenWater`
 
@@ -253,6 +254,22 @@ Details:
 - The mixin targets only the `Vec3.scale(double)` call inside `PrimedTnt.tick()`; gravity and the horizontal `0.7` / `-0.5` friction use `multiply(DDD)` and are untouched.
 - The difference is tiny (float 0.98F ≈ 0.9800000190734863 vs 0.98D), but it accumulates over long fuses and is the exact behaviour vanilla had before 26.2.
 
+### `TNTchunkloading`
+
+While a primed TNT moves horizontally faster than the configured threshold, it keeps the chunk it occupies force-loaded.
+
+| Value | Behaviour |
+| --- | --- |
+| `false` (default) | Off; no chunk-loading logic runs |
+| non-negative number | Horizontal speed threshold in blocks/tick (e.g. `0`, `0.5`, `1.0`, `2.0`) |
+
+Details:
+
+- Checks `Math.abs(motion.x) > threshold || Math.abs(motion.z) > threshold` after `PrimedTnt.tick()`, on the server only, once per tick.
+- The ticket is a custom `TicketType` with an 80 gt timeout and exactly the flag bits of `TicketType.ENDER_PEARL`, so loading radius, simulation level and keep-dimension-active behaviour match an ender pearl. It is placed with radius `2`, the same radius `ServerPlayer.placeEnderPearlTicket` uses.
+- `strict = false` with a custom `Validator<String>`: `false` (any case) or any finite non-negative double is accepted; `-1`, `NaN`, `Infinity` and junk are rejected. The parsed value is cached, so the tick path never calls `Double.parseDouble`; the cache refreshes only when Carpet changes the rule string.
+- The listed options (`false`, `0.5`, `1.0`, `2.0`) are only tab-completion hints.
+
 ## Commands
 
 ### Unicode bot names
@@ -314,6 +331,7 @@ Server-side installation is enough; in single-player just drop it into `mods/`. 
 /carpet villagerneverstoptrading true
 /carpet crispydeepslate true
 /carpet TNTdrag doublefloat
+/carpet TNTchunkloading 1.0
 /player "测试" spawn
 /botmemo "测试" save
 /botmemo "测试" run
@@ -328,7 +346,7 @@ Requires **JDK 25**:
 
 ```bash
 ./gradlew build
-# output: build/libs/carpet-dan-addition-1.5.10+mc26.3.jar
+# output: build/libs/carpet-dan-addition-1.5.11+mc26.3.jar
 ```
 
 ## Compatibility
