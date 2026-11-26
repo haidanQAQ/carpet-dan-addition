@@ -13,6 +13,7 @@
     "issues": "https://github.com/haidanQAQ/Carpet-dan-addition/issues"
   },
   "license": "MIT",
+  "icon": "assets/carpet-dan-addition/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
