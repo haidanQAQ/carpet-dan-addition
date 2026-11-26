@@ -270,6 +270,8 @@
 - `strict = false` + 自定义 `Validator<String>`：接受 `false`（不区分大小写）或任意有限非负 double；`-1`、`NaN`、`Infinity`、乱写会被拒绝。解析结果有缓存，tick 路径不调用 `Double.parseDouble`，只有 Carpet 改规则字符串时才重新解析。
 - 列出的选项（`false`、`0.5`、`1.0`、`2.0`）只是 Tab 补全提示。
 
+为什么需要它：26.2 改动了点燃 TNT 的行为（见 `TNTdrag`），一部分依赖“飞行中的 TNT 跨区块时仍被加载/仍被 tick”的机器因此失效。规则开启时，持续给移动中的 TNT 续珍珠级加载票，可以让其中一部分机器恢复工作。它不改变 TNT 的空气阻尼精度——那要用 `TNTdrag`。
+
 ## 命令
 
 ### 中文名假人

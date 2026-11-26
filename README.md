@@ -270,6 +270,8 @@ Details:
 - `strict = false` with a custom `Validator<String>`: `false` (any case) or any finite non-negative double is accepted; `-1`, `NaN`, `Infinity` and junk are rejected. The parsed value is cached, so the tick path never calls `Double.parseDouble`; the cache refreshes only when Carpet changes the rule string.
 - The listed options (`false`, `0.5`, `1.0`, `2.0`) are only tab-completion hints.
 
+Why it exists: 26.2 changed primed TNT behaviour (see `TNTdrag`), and some machines that relied on a moving TNT staying loaded/being ticked as it crosses chunk borders stopped working. Renewing a pearl-level ticket on the moving TNT brings part of those machines back while the rule is on. It does not change TNT drag precision - use `TNTdrag` for that.
+
 ## Commands
 
 ### Unicode bot names
