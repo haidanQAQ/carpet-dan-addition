@@ -48,5 +48,9 @@
   "carpet.rule.crispydeepslate.name": "Crispy deepslate",
   "carpet.rule.crispydeepslate.desc": "Mines the deepslate block as if its hardness were stone's 1.5 instead of 3.0. Deepslate ores keep their own hardness, and the block itself drops the same item as before.",
   "carpet.rule.crispydeepslate.extra.0": "false - vanilla (deepslate hardness 3.0)",
-  "carpet.rule.crispydeepslate.extra.1": "true - deepslate is mined at stone speed (hardness 1.5)"
+  "carpet.rule.crispydeepslate.extra.1": "true - deepslate is mined at stone speed (hardness 1.5)",
+  "carpet.rule.TNTdrag.name": "TNT air drag precision",
+  "carpet.rule.TNTdrag.desc": "Controls the air drag factor applied to primed TNT each tick. float keeps vanilla 26.2+ behaviour (a float 0.98F widened to double); doublefloat restores the pre-26.2 double literal 0.98D.",
+  "carpet.rule.TNTdrag.extra.0": "float - vanilla 26.2+ (0.98F widened to double)",
+  "carpet.rule.TNTdrag.extra.1": "doublefloat - pre-26.2 double precision (exactly 0.98D)"
 }

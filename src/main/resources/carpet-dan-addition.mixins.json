@@ -18,6 +18,7 @@
     "PlayerCommandMixin",
     "PlayerChineseNameGateMixin",
     "PlayerListTickMixin",
+    "PrimedTntMixin",
     "SuggestionQuotingMixin",
     "ToolDurabilitySwapMixin"
   ],

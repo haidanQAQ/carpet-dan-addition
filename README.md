@@ -37,6 +37,8 @@ Every rule lives in the `dan` category. Run `/carpet list dan` in game to see th
 | [`deathchest`](#deathchest) | `false` | Items go into chests at the death spot |
 | [`leashableVillagers`](#leashablevillagers) | `false` | Villagers and wandering traders can be leashed |
 | [`villagerneverstoptrading`](#villagerneverstoptrading) | `false` | Trades never lock; uses frozen, so prices no longer rise |
+| [`crispydeepslate`](#crispydeepslate) | `false` | Deepslate is mined as if its hardness were 1.5 |
+| [`TNTdrag`](#tntdrag) | `float` | Primed TNT air drag: `float` (26.2+) or `doublefloat` (pre-26.2) |
 
 ### `fishingTreasureNoOpenWater`
 
@@ -222,6 +224,35 @@ Details:
 - Cost: three cheap checks per trade, O(1). It does no command execution and rewrites no NBT, unlike the advancement/datapack approach that resets `Offers.Recipes[].uses` for every villager near the player on every trade.
 - Prices are still limited by the offer's own base cost and price multiplier.
 
+### `crispydeepslate`
+
+Mines the deepslate block as if its hardness were stone's 1.5 instead of 3.0.
+
+| Value | Behaviour |
+| --- | --- |
+| `false` (default) | Vanilla: deepslate hardness 3.0 |
+| `true` | Deepslate is mined at stone speed (hardness 1.5) |
+
+Details:
+
+- Only the `minecraft:deepslate` block is affected; deepslate ores keep their own hardness and drops are unchanged.
+- The progress formula is the same as vanilla, so tools, Efficiency, Haste, Mining Fatigue and water/air penalties all behave as usual.
+- Clients that do not run the addon keep showing the vanilla breaking animation while the server breaks the block earlier; single-player and integrated servers are consistent.
+
+### `TNTdrag`
+
+Controls the air drag precision applied to primed TNT each tick.
+
+| Value | Behaviour |
+| --- | --- |
+| `float` (default) | Vanilla 26.2+: `PrimedTnt.tick()` scales its velocity by `Entity#getAirDrag()`, a float `0.98F` widened to double |
+| `doublefloat` | Pre-26.2 precision: the scale argument is the exact double literal `0.98D` |
+
+Details:
+
+- The mixin targets only the `Vec3.scale(double)` call inside `PrimedTnt.tick()`; gravity and the horizontal `0.7` / `-0.5` friction use `multiply(DDD)` and are untouched.
+- The difference is tiny (float 0.98F ≈ 0.9800000190734863 vs 0.98D), but it accumulates over long fuses and is the exact behaviour vanilla had before 26.2.
+
 ## Commands
 
 ### Unicode bot names
@@ -281,6 +312,8 @@ Server-side installation is enough; in single-player just drop it into `mods/`. 
 /carpet botChineseName true
 /carpet leashableVillagers true
 /carpet villagerneverstoptrading true
+/carpet crispydeepslate true
+/carpet TNTdrag doublefloat
 /player "测试" spawn
 /botmemo "测试" save
 /botmemo "测试" run
@@ -295,7 +328,7 @@ Requires **JDK 25**:
 
 ```bash
 ./gradlew build
-# output: build/libs/carpet-dan-addition-1.5.9+mc26.3.jar
+# output: build/libs/carpet-dan-addition-1.5.10+mc26.3.jar
 ```
 
 ## Compatibility

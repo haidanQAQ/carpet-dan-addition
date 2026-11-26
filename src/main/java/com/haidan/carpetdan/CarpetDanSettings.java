@@ -31,6 +31,14 @@ public final class CarpetDanSettings {
     public static boolean crispydeepslate = false;
 
     /**
+     * float       - vanilla 26.2+: PrimedTnt.tick() scales its velocity by Entity#getAirDrag(),
+     *               a float 0.98F that is widened to double for the scale() call.
+     * doublefloat - pre-26.2 precision: the scale argument is the exact double literal 0.98D.
+     */
+    @Rule(categories = {"dan"}, options = {"float", "doublefloat"})
+    public static String TNTdrag = "float";
+
+    /**
      * false - vanilla: bots and players push each other.
      * true  - Carpet fake players (bots) and players no longer push each other,
      *         so a bot stays where it was placed when a player walks into it.
@@ -126,6 +134,10 @@ public final class CarpetDanSettings {
 
     public static boolean crispyDeepslate() {
         return crispydeepslate;
+    }
+
+    public static boolean tntDoubleDrag() {
+        return "doublefloat".equalsIgnoreCase(TNTdrag);
     }
 
     public static boolean botNoClip() {

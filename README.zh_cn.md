@@ -37,6 +37,8 @@
 | [`deathchest`](#deathchest) | `false` | 死亡后物品放进死亡点的箱子 |
 | [`leashableVillagers`](#leashablevillagers) | `false` | 村民和流浪商人可以被拴绳拴住 |
 | [`villagerneverstoptrading`](#villagerneverstoptrading) | `false` | 交易永不锁定；已用次数冻结，价格不再上涨 |
+| [`crispydeepslate`](#crispydeepslate) | `false` | 深板岩按硬度 1.5 挖 |
+| [`TNTdrag`](#tntdrag) | `float` | 点燃 TNT 的空气阻尼：`float`（26.2+）或 `doublefloat`（26.2 前） |
 
 ### `fishingTreasureNoOpenWater`
 
@@ -222,6 +224,35 @@
 - 算力：每次交易只做几次常数判断，O(1)。不执行命令、不改 NBT——不像数据包方案那样在每笔交易时对附近所有村民执行函数、重写 `Offers.Recipes[].uses`。
 - 价格仍受报价自身的基础价与倍率限制。
 
+### `crispydeepslate`
+
+把深板岩方块按硬度 1.5（石头）来挖。
+
+| 值 | 行为 |
+| --- | --- |
+| `false`（默认） | 原版：深板岩硬度 3.0 |
+| `true` | 深板岩按石头速度挖（硬度 1.5） |
+
+细节：
+
+- 只影响 `minecraft:deepslate` 方块，深板岩矿石保留自己的硬度，掉落物不变。
+- 进度公式和原版一致，工具、效率、急迫、挖掘疲劳、水下/空中惩罚都照常生效。
+- 没装本 addon 的客户端仍按原速度显示破坏动画，服务端会提前打掉方块；单人和集成服两端一致。
+
+### `TNTdrag`
+
+控制已点燃 TNT 每 tick 的空气阻尼精度。
+
+| 值 | 行为 |
+| --- | --- |
+| `float`（默认） | 26.2+ 原版：`PrimedTnt.tick()` 用 `Entity#getAirDrag()` 的 `0.98F` 扩宽成 double |
+| `doublefloat` | 26.2 之前：缩放参数使用精确的双精度字面量 `0.98D` |
+
+细节：
+
+- mixin 只替换 `PrimedTnt.tick()` 里那一次 `Vec3.scale(double)` 的参数；重力和水平 `0.7` / `-0.5` 摩擦走 `multiply(DDD)`，不受影响。
+- 差别很小（0.98F ≈ 0.9800000190734863，0.98D = 0.98），但长引信会累积，这正是 26.2 之前的原版行为。
+
 ## 命令
 
 ### 中文名假人
@@ -281,6 +312,8 @@ Carpet 的 `/player` 原本只接受 ASCII 名字。`botChineseName` 规则开�
 /carpet botChineseName true
 /carpet leashableVillagers true
 /carpet villagerneverstoptrading true
+/carpet crispydeepslate true
+/carpet TNTdrag doublefloat
 /player "测试" spawn
 /botmemo "测试" save
 /botmemo "测试" run
@@ -295,7 +328,7 @@ Carpet 的 `/player` 原本只接受 ASCII 名字。`botChineseName` 规则开�
 
 ```bash
 ./gradlew build
-# 产物：build/libs/carpet-dan-addition-1.5.9+mc26.3.jar
+# 产物：build/libs/carpet-dan-addition-1.5.10+mc26.3.jar
 ```
 
 ## 兼容性

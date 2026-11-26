@@ -48,5 +48,9 @@
   "carpet.rule.crispydeepslate.name": "脆皮深板岩",
   "carpet.rule.crispydeepslate.desc": "把深板岩方块的硬度从 3.0 降到和石头一样的 1.5，挖掘速度按石头算；深板岩矿石仍保留自己的硬度，掉落物不变。",
   "carpet.rule.crispydeepslate.extra.0": "false - 原版行为（深板岩硬度 3.0）",
-  "carpet.rule.crispydeepslate.extra.1": "true - 深板岩按石头速度挖（硬度 1.5）"
+  "carpet.rule.crispydeepslate.extra.1": "true - 深板岩按石头速度挖（硬度 1.5）",
+  "carpet.rule.TNTdrag.name": "TNT 空气阻尼精度",
+  "carpet.rule.TNTdrag.desc": "控制已点燃 TNT 每 tick 受到的空气阻尼精度。float 保留 26.2+ 原版行为（单精度 0.98F 再扩宽为 double）；doublefloat 恢复 26.2 之前的双精度字面量 0.98D。",
+  "carpet.rule.TNTdrag.extra.0": "float - 26.2+ 原版（0.98F 扩宽为 double）",
+  "carpet.rule.TNTdrag.extra.1": "doublefloat - 26.2 之前的双精度（精确的 0.98D）"
 }
