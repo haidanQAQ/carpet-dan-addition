@@ -40,6 +40,7 @@ Every rule lives in the `dan` category. Run `/carpet list dan` in game to see th
 | [`crispydeepslate`](#crispydeepslate) | `false` | Deepslate is mined as if its hardness were 1.5 |
 | [`TNTdrag`](#tntdrag) | `float` | Primed TNT air drag: `float` (26.2+) or `doublefloat` (pre-26.2) |
 | [`TNTchunkloading`](#tntchunkloading) | `false` | Fast primed TNT keeps its chunk force-loaded (80 gt pearl-level ticket) |
+| [`mergeTNTdebug`](#mergetntdebug) | `false` | Enables `/mergeTNT`: spawn an n-equivalent TNT (mergeTNT-style) |
 
 ### `fishingTreasureNoOpenWater`
 
@@ -274,6 +275,20 @@ Why it exists: 26.2 changed primed TNT behaviour (see `TNTdrag`), and some machi
 
 ## Commands
 
+### `mergeTNTdebug`
+
+Enables the `/mergeTNT <x> <y> <z> [n] [m]` command.
+
+- `n` — how many TNT equivalents the spawned TNT carries. Default `1`, **no upper limit**.
+- `m` — fuse in ticks. Default `80`.
+- The TNT explodes `n` times at its own position, exactly like Carpet's `mergeTNT`: every extra pass is a separate `4.0F` explosion. It never reads or writes the counters of `mergeTNT`, `mergeTNTPro` or `mergeTNTMax`, so it works whether those rules are off, on, or both installed.
+- The count lives in memory only (a weak map keyed by the entity). If the TNT gets merged into another TNT by a mergeTNT rule, its count is lost — use it on a standalone TNT.
+
+```text
+/carpet mergeTNTdebug true
+/mergeTNT 0 70 0 5 80
+```
+
 ### Unicode bot names
 
 Carpet's `/player` command normally accepts only ASCII names. With the `botChineseName` rule on (default), the name argument is swapped to a quoted string, so Unicode names work when they are written **in quotes**:
@@ -334,6 +349,8 @@ Server-side installation is enough; in single-player just drop it into `mods/`. 
 /carpet crispydeepslate true
 /carpet TNTdrag doublefloat
 /carpet TNTchunkloading 1.0
+/carpet mergeTNTdebug true
+/mergeTNT 0 70 0 5 80
 /player "测试" spawn
 /botmemo "测试" save
 /botmemo "测试" run

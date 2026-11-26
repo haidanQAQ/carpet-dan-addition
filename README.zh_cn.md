@@ -40,6 +40,7 @@
 | [`crispydeepslate`](#crispydeepslate) | `false` | 深板岩按硬度 1.5 挖 |
 | [`TNTdrag`](#tntdrag) | `float` | 点燃 TNT 的空气阻尼：`float`（26.2+）或 `doublefloat`（26.2 前） |
 | [`TNTchunkloading`](#tntchunkloading) | `false` | 高速点燃 TNT 持续强加载所在区块（80gt 珍珠级加载票） |
+| [`mergeTNTdebug`](#mergetntdebug) | `false` | 开启 `/mergeTNT`：生成任意当量的 TNT（mergeTNT 式爆炸） |
 
 ### `fishingTreasureNoOpenWater`
 
@@ -274,6 +275,20 @@
 
 ## 命令
 
+### `mergeTNTdebug`
+
+开启 `/mergeTNT <x> <y> <z> [n] [m]` 命令。
+
+- `n` — 生成的 TNT 携带的 TNT 当量，默认 `1`，**不设上限**。
+- `m` — 引信 tick 数，默认 `80`。
+- TNT 会在自身位置爆炸 `n` 次，行为与 Carpet 的 `mergeTNT` 一致：多出来的每一次都是独立的 `4.0F` 爆炸。它不读也不写 `mergeTNT`、`mergeTNTPro`、`mergeTNTMax` 的计数，所以这些规则开不开都能用。
+- 当量只存在内存里（以实体为键的弱引用表）。如果这枚 TNT 被某个 mergeTNT 规则合并进别的 TNT，它的当量会丢失——请单独使用。
+
+```text
+/carpet mergeTNTdebug true
+/mergeTNT 0 70 0 5 80
+```
+
 ### 中文名假人
 
 Carpet 的 `/player` 原本只接受 ASCII 名字。`botChineseName` 规则开启时（默认），名字参数会被换成可加引号的字符串，所以中文名要**带引号**写：
@@ -334,6 +349,8 @@ Carpet 的 `/player` 原本只接受 ASCII 名字。`botChineseName` 规则开�
 /carpet crispydeepslate true
 /carpet TNTdrag doublefloat
 /carpet TNTchunkloading 1.0
+/carpet mergeTNTdebug true
+/mergeTNT 0 70 0 5 80
 /player "测试" spawn
 /botmemo "测试" save
 /botmemo "测试" run

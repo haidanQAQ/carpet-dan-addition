@@ -195,6 +195,15 @@ public final class CarpetDanSettings {
     @Rule(categories = {"dan"})
     public static boolean villagerneverstoptrading = false;
 
+    /**
+     * false - /mergedTNT is disabled.
+     * true  - /mergedTNT <x> <y> <z> [n] [m] spawns a primed TNT that explodes n times, the
+     *         same way mergeTNT does (each extra pass is a separate 4.0F explosion at the
+     *         TNT's position). It works without mergeTNT, mergeTNTPro or mergeTNTMax.
+     */
+    @Rule(categories = {"dan"})
+    public static boolean mergeTNTdebug = false;
+
     public static boolean ignoreOpenWater() {
         return !"false".equalsIgnoreCase(fishingTreasureNoOpenWater);
     }
@@ -249,5 +258,9 @@ public final class CarpetDanSettings {
 
     public static boolean villagerNeverStopTrading() {
         return villagerneverstoptrading;
+    }
+
+    public static boolean mergeTntDebugEnabled() {
+        return mergeTNTdebug;
     }
 }

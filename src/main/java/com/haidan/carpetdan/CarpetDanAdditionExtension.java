@@ -20,6 +20,7 @@ public class CarpetDanAdditionExtension implements CarpetExtension {
     @Override
     public void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher) {
         BotMemoCommand.register(dispatcher);
+        MergedTntCommand.register(dispatcher);
     }
 
     /**

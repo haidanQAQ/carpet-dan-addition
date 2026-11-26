@@ -56,5 +56,9 @@
   "carpet.rule.TNTchunkloading.name": "TNT 区块强加载",
   "carpet.rule.TNTchunkloading.desc": "已点燃的 TNT 水平速度超过阈值（格/tick）时，会持续为它所在区块发放一张 80gt、与珍珠票同等级的加载票。false 关闭；任意非负数字均可。",
   "carpet.rule.TNTchunkloading.extra.0": "false - 关闭，不执行区块加载",
-  "carpet.rule.TNTchunkloading.extra.1": "数字 - 水平速度阈值，如 0、0.5、1.0、2.0"
+  "carpet.rule.TNTchunkloading.extra.1": "数字 - 水平速度阈值，如 0、0.5、1.0、2.0",
+  "carpet.rule.mergeTNTdebug.name": "合并 TNT 调试命令",
+  "carpet.rule.mergeTNTdebug.desc": "开启 /mergeTNT <x> <y> <z> [n] [m]：生成一枚当量为 n 的点燃 TNT，爆炸次数与 mergeTNT 一致，不依赖 mergeTNT、mergeTNTPro 或 mergeTNTMax。",
+  "carpet.rule.mergeTNTdebug.extra.0": "n - TNT 当量，默认 1，无上限",
+  "carpet.rule.mergeTNTdebug.extra.1": "m - 引信 tick 数，默认 80"
 }

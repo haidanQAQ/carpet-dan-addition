@@ -56,5 +56,9 @@
   "carpet.rule.TNTchunkloading.name": "TNT chunk loading",
   "carpet.rule.TNTchunkloading.desc": "While a primed TNT moves horizontally faster than the configured threshold (blocks/tick), it keeps its current chunk force-loaded with an 80 gt ticket identical to an ender pearl ticket. false disables it; any non-negative number is accepted.",
   "carpet.rule.TNTchunkloading.extra.0": "false - off, no chunk loading",
-  "carpet.rule.TNTchunkloading.extra.1": "number - horizontal speed threshold, e.g. 0, 0.5, 1.0, 2.0"
+  "carpet.rule.TNTchunkloading.extra.1": "number - horizontal speed threshold, e.g. 0, 0.5, 1.0, 2.0",
+  "carpet.rule.mergeTNTdebug.name": "Merged TNT debug command",
+  "carpet.rule.mergeTNTdebug.desc": "Enables /mergeTNT <x> <y> <z> [n] [m]: spawns a primed TNT that explodes n times the way mergeTNT does, without needing mergeTNT, mergeTNTPro or mergeTNTMax.",
+  "carpet.rule.mergeTNTdebug.extra.0": "n - TNT equivalents, default 1, no upper limit",
+  "carpet.rule.mergeTNTdebug.extra.1": "m - fuse in ticks, default 80"
 }
