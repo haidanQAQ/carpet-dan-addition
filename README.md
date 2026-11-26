@@ -277,8 +277,9 @@ Why it exists: 26.2 changed primed TNT behaviour (see `TNTdrag`), and some machi
 
 ### `mergeTNTdebug`
 
-Enables the `/mergeTNT <x> <y> <z> [n] [m]` command.
+Enables the `/mergeTNT <pos> [n] [m]` command.
 
+- `pos` — vanilla coordinates: absolute (`0 70 0`), `~ ~ ~` relative, or `^ ^ ^` local. Tab completion uses the vanilla coordinate suggestions.
 - `n` — how many TNT equivalents the spawned TNT carries. Default `1`, **no upper limit**.
 - `m` — fuse in ticks. Default `80`.
 - The TNT explodes `n` times at its own position, exactly like Carpet's `mergeTNT`: every extra pass is a separate `4.0F` explosion. It never reads or writes the counters of `mergeTNT`, `mergeTNTPro` or `mergeTNTMax`, so it works whether those rules are off, on, or both installed.
@@ -287,6 +288,7 @@ Enables the `/mergeTNT <x> <y> <z> [n] [m]` command.
 ```text
 /carpet mergeTNTdebug true
 /mergeTNT 0 70 0 5 80
+/mergeTNT ~ ~1 ~ 5 80
 ```
 
 ### Unicode bot names

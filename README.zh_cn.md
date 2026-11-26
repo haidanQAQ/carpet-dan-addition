@@ -277,8 +277,9 @@
 
 ### `mergeTNTdebug`
 
-开启 `/mergeTNT <x> <y> <z> [n] [m]` 命令。
+开启 `/mergeTNT <pos> [n] [m]` 命令。
 
+- `pos` — 原版坐标写法：绝对坐标（`0 70 0`）、`~ ~ ~` 相对坐标、`^ ^ ^` 局部坐标；Tab 补全使用原版的坐标建议。
 - `n` — 生成的 TNT 携带的 TNT 当量，默认 `1`，**不设上限**。
 - `m` — 引信 tick 数，默认 `80`。
 - TNT 会在自身位置爆炸 `n` 次，行为与 Carpet 的 `mergeTNT` 一致：多出来的每一次都是独立的 `4.0F` 爆炸。它不读也不写 `mergeTNT`、`mergeTNTPro`、`mergeTNTMax` 的计数，所以这些规则开不开都能用。
@@ -287,6 +288,7 @@
 ```text
 /carpet mergeTNTdebug true
 /mergeTNT 0 70 0 5 80
+/mergeTNT ~ ~1 ~ 5 80
 ```
 
 ### 中文名假人
